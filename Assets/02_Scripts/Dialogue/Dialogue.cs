@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Dialogue
 {
-    [Tooltip("캐릭터 이름")]
+    [Tooltip("대화하고 있는 캐릭터 이미지")]
+    public GameObject image;
+
+    [HideInInspector]
     public string name;
 
-    [Tooltip("대사 내용")]
+    [HideInInspector]
     public string[] contexts;
 
     [Tooltip("이벤트 번호")]
