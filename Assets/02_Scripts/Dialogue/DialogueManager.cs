@@ -81,6 +81,7 @@ public class DialogueManager : MonoBehaviour
         isNext = false;
         theIC.SettingUI(true);
         SettingUI(false);
+        go_DialogueNameBar.SetActive(false);
     }
 
     IEnumerator TypeWriter()
