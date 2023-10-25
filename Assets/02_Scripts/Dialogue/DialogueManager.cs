@@ -24,10 +24,12 @@ public class DialogueManager : MonoBehaviour
     int contextCount = 0;
 
     InteractionController theIC;
+    SplashManager splashManager;
 
     private void Start()
     {
         theIC = FindObjectOfType<InteractionController>();
+        splashManager = FindObjectOfType<SplashManager>();
     }
 
     private void Update()
@@ -49,7 +51,7 @@ public class DialogueManager : MonoBehaviour
                         contextCount = 0;
                         if(++lineCount < dialogues.Length)
                         {
-                            StartCoroutine(TypeWriter());
+                            StartCoroutine(CameraTargettingType());
                         }
                         else
                         {
@@ -68,6 +70,19 @@ public class DialogueManager : MonoBehaviour
         txt_Name.text = "";
         theIC.SettingUI(false);
         dialogues = p_dialogues;
+
+        StartCoroutine(CameraTargettingType());
+    }
+
+    IEnumerator CameraTargettingType()
+    {
+        switch(dialogues[lineCount].cameraType)
+        {
+            case CameraType.FadeIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeIn(false, true));yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.FadeOut: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.FlashIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeIn(true, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.FlashOut: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(true, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
+        }
 
         StartCoroutine(TypeWriter());
     }

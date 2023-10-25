@@ -3,10 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum CameraType
+{
+    None,
+    FadeIn,
+    FadeOut,
+    FlashIn,
+    FlashOut
+}
+
 [System.Serializable]
 public class Dialogue
 {
     [Tooltip("대화하고 있는 캐릭터 이미지")]
+    public CameraType cameraType;
     public GameObject image;
 
     [HideInInspector]
