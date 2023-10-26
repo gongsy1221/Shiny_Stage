@@ -30,6 +30,9 @@ public class Dialogue
 
     [Tooltip("Ω∫≈µ∂Û¿Œ")]
     public string[] skipnum;
+
+    [HideInInspector]
+    public string[] spriteName;
 }
 
 [System.Serializable]

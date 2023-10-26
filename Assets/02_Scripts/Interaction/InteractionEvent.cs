@@ -12,6 +12,7 @@ public class InteractionEvent : MonoBehaviour
         t_DialogueEvent.dialogues = DatabaseManager.instance.GetDialogue((int)dialogueEvent.line.x, (int)dialogueEvent.line.y);
         for (int i = 0; i < dialogueEvent.dialogues.Length; i++)
         {
+            t_DialogueEvent.dialogues[i].targetImage = dialogueEvent.dialogues[i].targetImage;
             t_DialogueEvent.dialogues[i].cameraType = dialogueEvent.dialogues[i].cameraType;
         }
 

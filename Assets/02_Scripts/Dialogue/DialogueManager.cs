@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] GameObject go_DialogueBar;
     [SerializeField] GameObject go_DialogueNameBar;
+    [SerializeField] GameObject go_DialogueImage;
 
     [SerializeField] TextMeshProUGUI txt_Dialogue;
     [SerializeField] TextMeshProUGUI txt_Name;
@@ -25,11 +26,14 @@ public class DialogueManager : MonoBehaviour
 
     InteractionController theIC;
     SplashManager splashManager;
+    SpriteManager spriteManager;
 
     private void Start()
     {
         theIC = FindObjectOfType<InteractionController>();
         splashManager = FindObjectOfType<SplashManager>();
+        spriteManager = FindObjectOfType<SpriteManager>();
+
     }
 
     private void Update()
@@ -99,9 +103,18 @@ public class DialogueManager : MonoBehaviour
         go_DialogueNameBar.SetActive(false);
     }
 
+    void ChangeSprite()
+    {
+        if (dialogues[lineCount].spriteName[contextCount] != "")
+        {
+            StartCoroutine(spriteManager.SpriteChangeCoroutine(dialogues[lineCount].targetImage, dialogues[lineCount].spriteName[contextCount]));
+        }
+    }
+
     IEnumerator TypeWriter()
     {
         SettingUI(true);
+        ChangeSprite();
 
         string t_ReplaceText = dialogues[lineCount].contexts[contextCount];
         t_ReplaceText = t_ReplaceText.Replace("'", ",");
@@ -120,6 +133,7 @@ public class DialogueManager : MonoBehaviour
     void SettingUI(bool p_flag)
     {
         go_DialogueBar.SetActive(p_flag);
+        go_DialogueImage.SetActive(p_flag);
 
         //go_DialogueNameBar.SetActive(p_flag);
 

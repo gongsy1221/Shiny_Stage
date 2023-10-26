@@ -16,7 +16,6 @@ public class DialogueParser : MonoBehaviour
             string[] row = data[i].Split(new char[] { ',' });
 
             Dialogue dialogue = new Dialogue();
-            TalkSprite talkSprite = new TalkSprite();
 
             dialogue.name = row[1];
             List<string> contextList = new List<string>();
@@ -37,7 +36,7 @@ public class DialogueParser : MonoBehaviour
             } while (row[0].ToString() == "");
 
             dialogue.contexts = contextList.ToArray();
-            talkSprite.spriteName = spriteList.ToArray();
+            dialogue.spriteName = spriteList.ToArray();
 
             dialogueList.Add(dialogue);
         }
