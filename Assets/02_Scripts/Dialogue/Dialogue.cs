@@ -17,7 +17,7 @@ public class Dialogue
 {
     [Tooltip("대화하고 있는 캐릭터 이미지")]
     public CameraType cameraType;
-    public GameObject image;
+    public Transform targetImage;
 
     [HideInInspector]
     public string name;
