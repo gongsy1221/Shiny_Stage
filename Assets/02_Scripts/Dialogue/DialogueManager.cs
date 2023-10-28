@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour
 
     Dialogue[] dialogues;
 
-    bool isDialogue = false;
+    public bool isDialogue = false;
     bool isNext = false;
 
     [Header ("텍스트 출력 딜레이")]
@@ -27,13 +27,13 @@ public class DialogueManager : MonoBehaviour
     InteractionController theIC;
     SplashManager splashManager;
     SpriteManager spriteManager;
+    DestroyObject destroyObject;
 
     private void Start()
     {
         theIC = FindObjectOfType<InteractionController>();
         splashManager = FindObjectOfType<SplashManager>();
         spriteManager = FindObjectOfType<SpriteManager>();
-
     }
 
     private void Update()
