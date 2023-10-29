@@ -986,7 +986,6 @@ GameObject:
   - component: {fileID: 1160462023}
   - component: {fileID: 1160462025}
   - component: {fileID: 1160462026}
-  - component: {fileID: 1160462027}
   - component: {fileID: 1160462024}
   m_Layer: 0
   m_Name: StartImage
@@ -1123,7 +1122,7 @@ MonoBehaviour:
     name: 
     line: {x: 1, y: 4}
     dialogues:
-    - cameraType: 0
+    - cameraType: 3
       targetImage: {fileID: 0}
       name: 
       contexts: []
@@ -1151,18 +1150,6 @@ MonoBehaviour:
       number: []
       skipnum: []
       spriteName: []
---- !u!114 &1160462027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1160462022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a292f71798c41e24cb6a60545b0f3d71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1494393679
 GameObject:
   m_ObjectHideFlags: 0
@@ -7996,7 +7983,7 @@ GameObject:
   - component: {fileID: 8177180172424014622}
   m_Layer: 0
   m_Name: TalkCharacter
-  m_TagString: Interaction
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

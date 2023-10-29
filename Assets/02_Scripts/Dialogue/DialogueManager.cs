@@ -84,8 +84,8 @@ public class DialogueManager : MonoBehaviour
         {
             case CameraType.FadeIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeIn(false, true));yield return new WaitUntil(() => SplashManager.isfinished); break;
             case CameraType.FadeOut: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
-            case CameraType.FlashIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeIn(true, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
-            case CameraType.FlashOut: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(true, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.FlashIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.Splash()); yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.FlashOut: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.Splash()); yield return new WaitUntil(() => SplashManager.isfinished); break;
         }
 
         StartCoroutine(TypeWriter());
