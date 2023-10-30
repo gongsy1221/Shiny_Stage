@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class DialogueParser : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class DialogueParser : MonoBehaviour
             {
                 contextList.Add(row[2]);
                 spriteList.Add(row[3]);
+                Debug.Log(row[3]);
+                
                 if (++i < data.Length)
                 {
                     row = data[i].Split(new char[] { ',' });

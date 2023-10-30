@@ -61,7 +61,7 @@ public class InteractionController : MonoBehaviour
     }
     void Contact()
     {
-        if(hitInfo.transform.CompareTag("Interaction"))
+        if(hitInfo.collider.transform.CompareTag("Interaction"))
         {
             if (!isContact)
             {
@@ -105,8 +105,8 @@ public class InteractionController : MonoBehaviour
         isInteract = true;
 
         ps_QuesttionEffect.gameObject.SetActive(true);
-        ps_QuesttionEffect.transform.position = hitInfo.transform.position;
-        Vector3 t_targetPos = hitInfo.transform.position;
+        ps_QuesttionEffect.transform.position = hitInfo.point;
+        Vector3 t_targetPos = hitInfo.point;
         ps_QuesttionEffect.GetComponent<QuestionEffect>().SetTarget(t_targetPos);
 
         StartCoroutine(WaitCollision());
@@ -116,6 +116,7 @@ public class InteractionController : MonoBehaviour
     {
         yield return new WaitUntil(()=>QuestionEffect.isCollide);
         QuestionEffect.isCollide = false;
+
 
         theDM.ShowDialogue(hitInfo.transform.GetComponent<InteractionEvent>().GetDialogues());
     }

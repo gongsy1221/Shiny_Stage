@@ -17,7 +17,13 @@ public class DestroyObject : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            ObjectDestroy();
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+
+            if(hit.collider == gameObject)
+            {
+                ObjectDestroy();
+            }
         }
     }
 
