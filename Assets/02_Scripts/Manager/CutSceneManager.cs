@@ -16,6 +16,11 @@ public class CutSceneManager : MonoBehaviour
         splashManager = FindObjectOfType<SplashManager>();
     }
 
+    public bool CheckCutScene()
+    {
+        return img_CutSscene.gameObject.activeSelf;
+    }
+
     public IEnumerator CutSceneRoutine(string p_CutSceneName, bool p_isShow)
     {
         SplashManager.isfinished = false;
@@ -29,6 +34,7 @@ public class CutSceneManager : MonoBehaviour
             {
                 img_CutSscene.gameObject.SetActive(true);
                 img_CutSscene.sprite = t_sprite;
+                
             }
             else
             {

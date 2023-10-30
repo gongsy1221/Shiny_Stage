@@ -8,7 +8,7 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] GameObject go_DialogueBar;
     [SerializeField] GameObject go_DialogueNameBar;
-    [SerializeField] GameObject go_DialogueImage;
+    [SerializeField] GameObject[] go_DialogueImage;
 
     [SerializeField] TextMeshProUGUI txt_Dialogue;
     [SerializeField] TextMeshProUGUI txt_Name;
@@ -21,18 +21,37 @@ public class DialogueManager : MonoBehaviour
     [Header ("텍스트 출력 딜레이")]
     [SerializeField] float textDelay;
 
-    int lineCount = 0;
-    int contextCount = 0;
+    int lineCount = 0; // 대화 카운트
+    int contextCount = 0; // 대사 카운트
+
+    // 이벤트 끝나면 등장, 퇴장 오브젝트들
+    GameObject[] go_Objects;
+    byte appearTypeNumber;
+    const byte none = 0, appear = 1, disappear = 2;
+
+    public void SetAppearObjects(GameObject[] p_targets)
+    {
+        go_Objects = p_targets;
+        appearTypeNumber = appear;
+    }
+
+    public void SetDisappearObjects(GameObject[] p_targets)
+    {
+        go_Objects = p_targets;
+        appearTypeNumber = disappear;
+    }
 
     InteractionController theIC;
     SplashManager splashManager;
     SpriteManager spriteManager;
+    CutSceneManager cutSceneManager;
 
     private void Start()
     {
         theIC = FindObjectOfType<InteractionController>();
         splashManager = FindObjectOfType<SplashManager>();
         spriteManager = FindObjectOfType<SpriteManager>();
+        cutSceneManager = FindObjectOfType<CutSceneManager>();
     }
 
     private void Update()
@@ -58,7 +77,7 @@ public class DialogueManager : MonoBehaviour
                         }
                         else
                         {
-                            EndDialogue();
+                            StartCoroutine(EndDialogue());
                         }
                     }
                 }
@@ -84,14 +103,25 @@ public class DialogueManager : MonoBehaviour
             case CameraType.FadeIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeIn(false, true));yield return new WaitUntil(() => SplashManager.isfinished); break;
             case CameraType.FadeOut: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
             case CameraType.FlashIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
-            case CameraType.FlashOut: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.FlashOut: go_DialogueNameBar.SetActive(false); SettingUI(false);SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.ShowCutScene: SettingUI(false); CutSceneManager.isFinished = false;StartCoroutine(cutSceneManager.CutSceneRoutine(dialogues[lineCount].spriteName[contextCount], true));yield return new WaitUntil(() => CutSceneManager.isFinished);break;
+            case CameraType.HideCutScene: SettingUI(false); CutSceneManager.isFinished = false;StartCoroutine(cutSceneManager.CutSceneRoutine(null, false));yield return new WaitUntil(() => CutSceneManager.isFinished);break;
         }
 
         StartCoroutine(TypeWriter());
     }
 
-    void EndDialogue()
+    IEnumerator EndDialogue()
     {
+        if(cutSceneManager.CheckCutScene())
+        {
+            CutSceneManager.isFinished = false;
+            StartCoroutine(cutSceneManager.CutSceneRoutine(null, false));
+            yield return new WaitUntil(() => CutSceneManager.isFinished);
+        }
+
+        AppearOrDisappearObjects();
+
         isDialogue = false;
         contextCount = 0;
         lineCount = 0;
@@ -102,11 +132,34 @@ public class DialogueManager : MonoBehaviour
         go_DialogueNameBar.SetActive(false);
     }
 
+    void AppearOrDisappearObjects()
+    {
+        if(go_Objects!=null)
+        {
+            for (int i = 0; i < go_Objects.Length; i++)
+            {
+                if(appearTypeNumber == appear)
+                {
+                    go_Objects[i].SetActive(true);
+                }
+                else if(appearTypeNumber == disappear)
+                {
+                    go_Objects[i].SetActive(false);
+                }
+            }
+        }
+        go_Objects = null;
+        appearTypeNumber = none;
+    }
+
     void ChangeSprite()
     {
-        if (dialogues[lineCount].spriteName[contextCount] != "")
+        if (dialogues[lineCount].targetImage != null)
         {
-            StartCoroutine(spriteManager.SpriteChangeCoroutine(dialogues[lineCount].targetImage, dialogues[lineCount].spriteName[contextCount]));
+            if (dialogues[lineCount].spriteName[contextCount] != "")
+            {
+                StartCoroutine(spriteManager.SpriteChangeCoroutine(dialogues[lineCount].targetImage, dialogues[lineCount].spriteName[contextCount]));
+            }
         }
     }
 
@@ -116,7 +169,7 @@ public class DialogueManager : MonoBehaviour
         ChangeSprite();
 
         string t_ReplaceText = dialogues[lineCount].contexts[contextCount];
-        t_ReplaceText = t_ReplaceText.Replace("'", ",");
+        t_ReplaceText = t_ReplaceText.Replace("`", ",");
         t_ReplaceText = t_ReplaceText.Replace("\\n", "\n");
 
         //txt_Dialogue.text = dialogues[lineCount].name;
@@ -132,8 +185,11 @@ public class DialogueManager : MonoBehaviour
     void SettingUI(bool p_flag)
     {
         go_DialogueBar.SetActive(p_flag);
-        go_DialogueImage.SetActive(p_flag);
 
+        for (int i = 0; i < go_DialogueImage.Length; i++)
+        {
+            go_DialogueImage[i].SetActive(p_flag);
+        }
         //go_DialogueNameBar.SetActive(p_flag);
 
         if(p_flag)

@@ -9,7 +9,16 @@ public enum CameraType
     FadeIn,
     FadeOut,
     FlashIn,
-    FlashOut
+    FlashOut,
+    ShowCutScene,
+    HideCutScene
+}
+
+public enum AppearType
+{
+    None,
+    Appear,
+    Disappear
 }
 
 [System.Serializable]
@@ -42,4 +51,8 @@ public class DialogueEvent
 
     public Vector2 line;
     public Dialogue[] dialogues;
+
+    [Space]
+    public AppearType appearType;
+    public GameObject[] go_Targets;
 }

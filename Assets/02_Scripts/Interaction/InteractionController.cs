@@ -117,7 +117,18 @@ public class InteractionController : MonoBehaviour
         yield return new WaitUntil(()=>QuestionEffect.isCollide);
         QuestionEffect.isCollide = false;
 
+        yield return new WaitForSeconds(0.5f);
 
-        theDM.ShowDialogue(hitInfo.transform.GetComponent<InteractionEvent>().GetDialogues());
+        InteractionEvent t_Event = hitInfo.transform.GetComponent<InteractionEvent>();
+
+        if (t_Event.GetAppearType() == AppearType.Appear)
+        {
+            theDM.SetAppearObjects(t_Event.GetTargets());
+        }
+        else if(t_Event.GetAppearType()==AppearType.Disappear)
+        { 
+            theDM.SetDisappearObjects(t_Event.GetTargets());
+        }
+        theDM.ShowDialogue(t_Event.GetDialogues());
     }
 }

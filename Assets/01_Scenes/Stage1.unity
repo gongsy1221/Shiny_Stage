@@ -8460,7 +8460,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_DialogueBar: {fileID: 3497900885300811605}
   go_DialogueNameBar: {fileID: 1579117584604514378}
-  go_DialogueImage: {fileID: 6197925986294195808}
+  go_DialogueImage:
+  - {fileID: 6197925986294195808}
   txt_Dialogue: {fileID: 5887850306518391569}
   txt_Name: {fileID: 6470165378186886923}
   isDialogue: 0
