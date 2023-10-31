@@ -55,4 +55,7 @@ public class DialogueEvent
     [Space]
     public AppearType appearType;
     public GameObject[] go_Targets;
+
+    [Space]
+    public GameObject go_NextEvent;
 }

@@ -120,7 +120,7 @@ public class InteractionController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         InteractionEvent t_Event = hitInfo.transform.GetComponent<InteractionEvent>();
-
+        theDM.SetNextEvent(t_Event.GetNextEvent());
         if (t_Event.GetAppearType() == AppearType.Appear)
         {
             theDM.SetAppearObjects(t_Event.GetTargets());

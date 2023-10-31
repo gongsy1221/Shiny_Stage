@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static bool isWaiting = false;
+
     [SerializeField] GameObject go_DialogueBar;
     [SerializeField] GameObject go_DialogueNameBar;
     [SerializeField] GameObject[] go_DialogueImage;
@@ -23,6 +25,14 @@ public class DialogueManager : MonoBehaviour
 
     int lineCount = 0; // 대화 카운트
     int contextCount = 0; // 대사 카운트
+
+    //다음 이벤트 변수
+    GameObject go_NextEvent;
+
+    public void SetNextEvent(GameObject p_NextEvent)
+    {
+        go_NextEvent = p_NextEvent;
+    }
 
     // 이벤트 끝나면 등장, 퇴장 오브젝트들
     GameObject[] go_Objects;
@@ -93,6 +103,16 @@ public class DialogueManager : MonoBehaviour
         theIC.SettingUI(false);
         dialogues = p_dialogues;
 
+        StartCoroutine(StartDialogue());
+    }
+
+    IEnumerator StartDialogue()
+    {
+        if(isWaiting)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        isWaiting = false;
         StartCoroutine(CameraTargettingType());
     }
 
@@ -102,8 +122,8 @@ public class DialogueManager : MonoBehaviour
         {
             case CameraType.FadeIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeIn(false, true));yield return new WaitUntil(() => SplashManager.isfinished); break;
             case CameraType.FadeOut: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
-            case CameraType.FlashIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
-            case CameraType.FlashOut: go_DialogueNameBar.SetActive(false); SettingUI(false);SplashManager.isfinished = false; StartCoroutine(splashManager.FadeOut(false, true)); yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.FlashIn: go_DialogueNameBar.SetActive(false); SettingUI(false); SplashManager.isfinished = false; StartCoroutine(splashManager.Splash()); yield return new WaitUntil(() => SplashManager.isfinished); break;
+            case CameraType.FlashOut: go_DialogueNameBar.SetActive(false); SettingUI(false);SplashManager.isfinished = false; StartCoroutine(splashManager.Splash()); yield return new WaitUntil(() => SplashManager.isfinished); break;
             case CameraType.ShowCutScene: SettingUI(false); CutSceneManager.isFinished = false;StartCoroutine(cutSceneManager.CutSceneRoutine(dialogues[lineCount].spriteName[contextCount], true));yield return new WaitUntil(() => CutSceneManager.isFinished);break;
             case CameraType.HideCutScene: SettingUI(false); CutSceneManager.isFinished = false;StartCoroutine(cutSceneManager.CutSceneRoutine(null, false));yield return new WaitUntil(() => CutSceneManager.isFinished);break;
         }
@@ -130,6 +150,14 @@ public class DialogueManager : MonoBehaviour
         theIC.SettingUI(true);
         SettingUI(false);
         go_DialogueNameBar.SetActive(false);
+        yield return new WaitUntil(() => !InteractionController.isInteract);
+        Debug.Log("end talk");
+
+        if(go_NextEvent != null)
+        {
+            go_NextEvent.SetActive(true);
+            go_NextEvent = null;
+        }
     }
 
     void AppearOrDisappearObjects()
@@ -172,10 +200,30 @@ public class DialogueManager : MonoBehaviour
         t_ReplaceText = t_ReplaceText.Replace("`", ",");
         t_ReplaceText = t_ReplaceText.Replace("\\n", "\n");
 
+        bool t_black = false, t_red = false, t_cyan = false;
+        bool t_ignore = false; 
+
         //txt_Dialogue.text = dialogues[lineCount].name;
         for (int i = 0; i < t_ReplaceText.Length; i++)
         {
-            txt_Dialogue.text += t_ReplaceText[i];
+            switch(t_ReplaceText[i])
+            {
+                case 'ⓑ':t_black = true; t_red = false; t_cyan = false; t_ignore = true; break;
+                case 'ⓡ':t_black = false; t_red = true; t_cyan = false; t_ignore = true; break;
+                case 'ⓒ':t_black = false; t_red = false; t_cyan = true; t_ignore = true; break;
+            }
+
+            string t_letter = t_ReplaceText[i].ToString();
+
+            if(!t_ignore)
+            {
+                if (t_black) { t_letter = "<color=#000000>" + t_letter + "</color>"; }
+                else if (t_red) { t_letter = "<color=#FF000B>" + t_letter + "</color>"; }
+                else if (t_cyan) { t_letter = "<color=#0038FF>" + t_letter + "</color>"; }
+                txt_Dialogue.text += t_letter;
+            }
+            t_ignore = false;
+
             yield return new WaitForSeconds(textDelay);
         }
 
