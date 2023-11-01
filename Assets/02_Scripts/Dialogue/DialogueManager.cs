@@ -151,7 +151,6 @@ public class DialogueManager : MonoBehaviour
         SettingUI(false);
         go_DialogueNameBar.SetActive(false);
         yield return new WaitUntil(() => !InteractionController.isInteract);
-        Debug.Log("end talk");
 
         if(go_NextEvent != null)
         {
