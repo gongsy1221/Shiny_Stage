@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 0a72d734450a63f41957efff0575783e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -306,7 +306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 40, y: 0}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2216450809712339834
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d326371e85a3b8440a795c6ae75e0edd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3084,9 +3084,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_DialogueBar: {fileID: 513447018190439868}
   go_DialogueNameBar: {fileID: 2468267361907792547}
-  go_DialogueImage: {fileID: 0}
+  go_DialogueImage:
+  - {fileID: 0}
   txt_Dialogue: {fileID: 7358586768467986936}
   txt_Name: {fileID: 7953794705287065058}
+  isDialogue: 0
   textDelay: 0
 --- !u!1 &7956969227508235569
 GameObject:
@@ -3546,10 +3548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3ae3ed8c153bd1d4eb65005706cb4011, type: 2}
   m_sharedMaterial: {fileID: -482579940539893194, guid: 3ae3ed8c153bd1d4eb65005706cb4011, type: 2}

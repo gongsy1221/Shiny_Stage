@@ -1345,6 +1345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 122327871}
+  sceneName: 
+  interactionEvent: 0
 --- !u!1 &1494393679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,10 +1456,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1631495662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc078452e12c3145ad8d37f3dfcd7b6, type: 3}
+  m_Script: {fileID: 11500000, guid: b8733cdac26770041b31648476ff3513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
   sceneName: Stage1
+  interactionEvent: 2
 --- !u!1 &1875340158
 GameObject:
   m_ObjectHideFlags: 0
