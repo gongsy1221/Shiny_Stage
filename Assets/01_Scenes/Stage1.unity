@@ -2018,6 +2018,7 @@ GameObject:
   - component: {fileID: 1558191333}
   - component: {fileID: 1558191332}
   - component: {fileID: 1558191331}
+  - component: {fileID: 1558191334}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -2116,6 +2117,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558191329}
   m_CullTransparentMesh: 1
+--- !u!114 &1558191334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558191329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e909d8789df3264fbdb08e7a6a5e812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: bda5e9409ec2fbb4184f9e181e9cbd87, type: 2}
+  - {fileID: 11400000, guid: 5fe162d20ba372d409d2cd514aac21a2, type: 2}
+  slotParent: {fileID: 1558191330}
+  slots:
+  - {fileID: 1904078135}
+  - {fileID: 1099327350}
+  - {fileID: 901334093}
+  - {fileID: 1030870078}
+  - {fileID: 448616616}
+  - {fileID: 1901778669}
+  - {fileID: 1024154162}
+  - {fileID: 1397632923}
+  - {fileID: 1940992809}
+  - {fileID: 505631714}
 --- !u!1 &1580812098
 GameObject:
   m_ObjectHideFlags: 0

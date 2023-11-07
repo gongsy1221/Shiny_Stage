@@ -8,7 +8,8 @@ public class Slot : MonoBehaviour
     [SerializeField] Image image;
 
     private Item _item;
-    private Item item
+
+    public Item item
     {
         get { return _item; }
         set
