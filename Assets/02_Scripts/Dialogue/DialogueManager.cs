@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEditor.PackageManager;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -157,6 +158,8 @@ public class DialogueManager : MonoBehaviour
             go_NextEvent.SetActive(true);
             go_NextEvent = null;
         }
+
+        theIC.GetItem();
     }
 
     void AppearOrDisappearObjects()

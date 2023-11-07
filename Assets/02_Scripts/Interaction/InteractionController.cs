@@ -7,6 +7,7 @@ public class InteractionController : MonoBehaviour
     [SerializeField] Camera cam;
 
     RaycastHit2D hitInfo;
+    IObjectItem clickInterface;
 
     [SerializeField] GameObject go_InteractiveCrosshair;
     [SerializeField] GameObject go_NomalCrosshair;
@@ -17,8 +18,10 @@ public class InteractionController : MonoBehaviour
     public static bool isInteract = false;
 
     [SerializeField] ParticleSystem ps_QuesttionEffect;
+    [SerializeField] Inventory inventory;
 
     DialogueManager theDM;
+    ObjectItem objectItem;
 
     public void SettingUI(bool p_flag)
     {
@@ -31,6 +34,7 @@ public class InteractionController : MonoBehaviour
     private void Start()
     {
         theDM = FindObjectOfType<DialogueManager>();
+        objectItem = FindObjectOfType<ObjectItem>();
 
         go_InteractiveCrosshair.SetActive(false);
     }
@@ -68,6 +72,7 @@ public class InteractionController : MonoBehaviour
                 isContact = true;
                 go_InteractiveCrosshair.SetActive(true);
                 go_NomalCrosshair.SetActive(false);
+                clickInterface = hitInfo.transform.gameObject.GetComponent<IObjectItem>();
             }
         }
         else
@@ -130,5 +135,17 @@ public class InteractionController : MonoBehaviour
             theDM.SetDisappearObjects(t_Event.GetTargets());
         }
         theDM.ShowDialogue(t_Event.GetDialogues());
+    }
+
+    public void GetItem()
+    {
+        
+        if (objectItem != null)
+        {
+            Item item = clickInterface.ClickItem();
+            Debug.Log(item.itemName);
+            inventory.AddItem(item);
+            hitInfo.transform.gameObject.SetActive(false);
+        }
     }
 }
