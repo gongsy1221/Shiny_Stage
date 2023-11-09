@@ -8,8 +8,39 @@ public class InteractionEvent : MonoBehaviour
 
     [SerializeField] DialogueEvent dialogueEvent;
 
+    PolygonCollider2D polygonCollider2D;
+    SpriteRenderer spriteRenderer;
+
+    private void Start()
+    {
+        polygonCollider2D = GetComponent<PolygonCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    bool CheckEvent()
+    {
+        bool t_flag = true;
+
+        for (int i = 0; i < dialogueEvent.eventTiming.eventConditions.Length; i++)
+        {
+            if (DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventConditions[i]] != dialogueEvent.eventTiming.conditionFlag)
+            {
+                t_flag = false;
+                break;
+            }
+        }
+
+        if (DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventEndNum])
+        {
+            t_flag = false;
+        }
+
+        return t_flag;
+    }
+
     public Dialogue[] GetDialogues()
     {
+        DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventNum] = true;
         DialogueEvent t_DialogueEvent = new DialogueEvent();
         t_DialogueEvent.dialogues = DatabaseManager.instance.GetDialogue((int)dialogueEvent.line.x, (int)dialogueEvent.line.y);
         for (int i = 0; i < dialogueEvent.dialogues.Length; i++)
@@ -40,6 +71,18 @@ public class InteractionEvent : MonoBehaviour
 
     private void Update()
     {
+        if (polygonCollider2D != null && spriteRenderer != null)
+        {
+            bool t_flag = CheckEvent();
+
+            polygonCollider2D.enabled = t_flag;
+            spriteRenderer.enabled = t_flag;
+        }
+        else
+        {
+            return;
+        }
+
         if (isAutoEvent && DatabaseManager.isFinish)
         {
             DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
