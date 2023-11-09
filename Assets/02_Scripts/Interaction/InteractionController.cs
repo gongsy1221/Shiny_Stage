@@ -139,7 +139,7 @@ public class InteractionController : MonoBehaviour
 
     public void GetItem()
     {
-        if (hitInfo.transform.gameObject.GetComponent<ObjectItem>() == null) return;
+        if (hitInfo.transform.gameObject == null || hitInfo.transform.gameObject.GetComponent<ObjectItem>() == null) return;
 
         Item item = clickInterface.ClickItem();
         Debug.Log(item.itemName);

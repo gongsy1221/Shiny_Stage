@@ -8,8 +8,39 @@ public class InteractionEvent : MonoBehaviour
 
     [SerializeField] DialogueEvent dialogueEvent;
 
+    private void Start()
+    {
+        bool t_flag = CheckEvent();
+
+        gameObject.SetActive(t_flag);
+    }
+
+    bool CheckEvent()
+    {
+        bool t_flag = true;
+
+        // 등장 도건과 일치하지 않을 경우, 등장시키지 않음
+        for (int i = 0; i < dialogueEvent.eventTiming.eventConditions.Length; i ++)
+        {
+            if (DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventConditions[i]] != dialogueEvent.eventTiming.conditionFlag)
+            {
+                t_flag = false;
+                break;
+            }
+        }
+
+        // 등장 조건과 관계없이, 퇴장 조건과 일치할 경우, 무조건 등장시키지 않음
+        if (DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventEndNum])
+        {
+            t_flag = false;
+        }
+
+        return t_flag;
+    }
+
     public Dialogue[] GetDialogues()
     {
+        DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventNum] = true;
         DialogueEvent t_DialogueEvent = new DialogueEvent();
         t_DialogueEvent.dialogues = DatabaseManager.instance.GetDialogue((int)dialogueEvent.line.x, (int)dialogueEvent.line.y);
         for (int i = 0; i < dialogueEvent.dialogues.Length; i++)
