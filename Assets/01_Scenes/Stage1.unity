@@ -487,7 +487,7 @@ MonoBehaviour:
       eventConditions: 00000000
       conditionFlag: 0
       eventEndNum: 4
-    line: {x: 1, y: 4}
+    line: {x: 1, y: 2}
     dialogues:
     - cameraType: 0
       targetImage: {fileID: 8133215814309687683}
@@ -503,6 +503,8 @@ MonoBehaviour:
       number: []
       skipnum: []
       spriteName: []
+    lineB: {x: 3, y: 4}
+    dialoguesB:
     - cameraType: 0
       targetImage: {fileID: 8133215814309687683}
       name: 
@@ -511,7 +513,7 @@ MonoBehaviour:
       skipnum: []
       spriteName: []
     - cameraType: 0
-      targetImage: {fileID: 0}
+      targetImage: {fileID: 8133215814309687683}
       name: 
       contexts: []
       number: []
@@ -1521,6 +1523,8 @@ MonoBehaviour:
       number: []
       skipnum: []
       spriteName: []
+    lineB: {x: 0, y: 0}
+    dialoguesB: []
     appearType: 0
     go_Targets: []
     go_NextEvent: {fileID: 0}
@@ -2468,6 +2472,8 @@ MonoBehaviour:
       number: []
       skipnum: []
       spriteName: []
+    lineB: {x: 0, y: 0}
+    dialoguesB: []
     appearType: 0
     go_Targets: []
     go_NextEvent: {fileID: 0}
@@ -3310,7 +3316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAD00\uCC30\uC218\uCCA9\n"
+  m_text: "\uC124\uC815\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3ae3ed8c153bd1d4eb65005706cb4011, type: 2}
   m_sharedMaterial: {fileID: -482579940539893194, guid: 3ae3ed8c153bd1d4eb65005706cb4011, type: 2}
@@ -17564,7 +17570,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_RenderMode: 1
   m_MeshDistribution: 0
   m_SortMode: 0

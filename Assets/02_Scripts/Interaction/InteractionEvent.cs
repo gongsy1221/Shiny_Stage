@@ -40,18 +40,31 @@ public class InteractionEvent : MonoBehaviour
 
     public Dialogue[] GetDialogues()
     {
-        DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventNum] = true;
-        DialogueEvent t_DialogueEvent = new DialogueEvent();
-        t_DialogueEvent.dialogues = DatabaseManager.instance.GetDialogue((int)dialogueEvent.line.x, (int)dialogueEvent.line.y);
+        // 상호작용 전 대화
+        if(!DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventNum])
+        {
+            DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventNum] = true;
+            dialogueEvent.dialogues = SettingDialogue(dialogueEvent.dialogues, (int)dialogueEvent.line.x, (int)dialogueEvent.line.y);
+            return dialogueEvent.dialogues;
+        }
+        // 상호작용 후 대화
+        else
+        {
+            dialogueEvent.dialoguesB = SettingDialogue(dialogueEvent.dialoguesB, (int)dialogueEvent.lineB.x, (int)dialogueEvent.lineB.y);
+            return dialogueEvent.dialoguesB;
+        }
+    }
+
+    Dialogue[] SettingDialogue(Dialogue[] p_Dialogue, int p_lineX, int p_lineY)
+    {
+        Dialogue[] t_Dialogues = DatabaseManager.instance.GetDialogue(p_lineX, p_lineY);
         for (int i = 0; i < dialogueEvent.dialogues.Length; i++)
         {
-            t_DialogueEvent.dialogues[i].targetImage = dialogueEvent.dialogues[i].targetImage;
-            t_DialogueEvent.dialogues[i].cameraType = dialogueEvent.dialogues[i].cameraType;
+            t_Dialogues[i].targetImage = p_Dialogue[i].targetImage;
+            t_Dialogues[i].cameraType = p_Dialogue[i].cameraType;
         }
 
-        dialogueEvent.dialogues = t_DialogueEvent.dialogues;
-
-        return dialogueEvent.dialogues;
+        return t_Dialogues;
     }
 
     public AppearType GetAppearType()
@@ -67,6 +80,11 @@ public class InteractionEvent : MonoBehaviour
     public GameObject GetNextEvent()
     {
         return dialogueEvent.go_NextEvent;
+    }
+
+    public int GetEventNumber()
+    {
+        return dialogueEvent.eventTiming.eventNum;
     }
 
     private void Update()

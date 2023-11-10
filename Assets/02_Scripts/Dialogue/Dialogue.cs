@@ -63,6 +63,10 @@ public class DialogueEvent
     public Dialogue[] dialogues;
 
     [Space]
+    public Vector2 lineB;
+    public Dialogue[] dialoguesB;
+
+    [Space]
     public AppearType appearType;
     public GameObject[] go_Targets;
 
