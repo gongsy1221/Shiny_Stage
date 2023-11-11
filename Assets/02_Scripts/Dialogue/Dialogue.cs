@@ -26,7 +26,6 @@ public class Dialogue
 {
     [Tooltip("대화하고 있는 캐릭터 이미지")]
     public CameraType cameraType;
-    public Transform targetImage;
 
     [HideInInspector]
     public string name;
@@ -63,6 +62,7 @@ public class DialogueEvent
     public Dialogue[] dialogues;
 
     [Space]
+    public bool isDialogueB;
     public Vector2 lineB;
     public Dialogue[] dialoguesB;
 
@@ -72,4 +72,7 @@ public class DialogueEvent
 
     [Space]
     public GameObject go_NextEvent;
+
+    [Space]
+    public bool isItem;
 }

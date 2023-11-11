@@ -21,7 +21,6 @@ public class InteractionController : MonoBehaviour
     [SerializeField] Inventory inventory;
 
     DialogueManager theDM;
-    ObjectItem objectItem;
 
     public void SettingUI(bool p_flag)
     {
@@ -34,7 +33,6 @@ public class InteractionController : MonoBehaviour
     private void Start()
     {
         theDM = FindObjectOfType<DialogueManager>();
-        objectItem = FindObjectOfType<ObjectItem>();
 
         go_InteractiveCrosshair.SetActive(false);
     }
@@ -139,10 +137,12 @@ public class InteractionController : MonoBehaviour
 
     public void GetItem()
     {
-        if (hitInfo.transform.gameObject.GetComponent<ObjectItem>() == null) return;
-
-        Item item = clickInterface.ClickItem();
-        inventory.AddItem(item);
-        hitInfo.transform.gameObject.SetActive(false);
+        if (hitInfo.transform.GetComponent<InteractionEvent>().dialogueEvent.isItem)
+        {
+            Debug.Log("item get");
+            Item item = clickInterface.ClickItem();
+            inventory.AddItem(item);
+            hitInfo.transform.gameObject.SetActive(false);
+        }
     }
 }

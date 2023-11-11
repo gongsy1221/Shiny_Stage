@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpriteManager : MonoBehaviour
 {
     [SerializeField] float fadeSpeed;
+    [SerializeField] public SpriteRenderer dialogueImage;
 
     bool CheckSameSprite(SpriteRenderer p_spriteRenderer, Sprite p_sprite)
     {
@@ -18,23 +19,23 @@ public class SpriteManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SpriteChangeCoroutine(Transform p_target, string p_SpriteName)
+    public IEnumerator SpriteChangeCoroutine(string p_SpriteName)
     {
-        SpriteRenderer t_spriteRenederer = p_target.GetComponentInChildren<SpriteRenderer>();
+        dialogueImage = dialogueImage.GetComponent<SpriteRenderer>();
         Sprite t_sprite = Resources.Load("Character/" + p_SpriteName, typeof(Sprite)) as Sprite;
 
-        if(!CheckSameSprite(t_spriteRenederer, t_sprite))
+        if(!CheckSameSprite(dialogueImage, t_sprite))
         {
-            Color t_color = t_spriteRenederer.color;
+            Color t_color = dialogueImage.color;
             t_color.a = 0;
-            t_spriteRenederer.color = t_color;
+            dialogueImage.color = t_color;
 
-            t_spriteRenederer.sprite = t_sprite;
+            dialogueImage.sprite = t_sprite;
 
             while(t_color.a < 1)
             {
                 t_color.a += fadeSpeed;
-                t_spriteRenederer.color = t_color;
+                dialogueImage.color = t_color;
                 yield return null;
             }
         }

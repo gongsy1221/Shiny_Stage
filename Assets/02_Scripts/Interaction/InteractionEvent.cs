@@ -6,7 +6,7 @@ public class InteractionEvent : MonoBehaviour
 {
     [SerializeField] bool isAutoEvent = false;
 
-    [SerializeField] DialogueEvent dialogueEvent;
+    [SerializeField] public DialogueEvent dialogueEvent;
 
     PolygonCollider2D polygonCollider2D;
     SpriteRenderer spriteRenderer;
@@ -40,18 +40,18 @@ public class InteractionEvent : MonoBehaviour
 
     public Dialogue[] GetDialogues()
     {
+        // 상호작용 후 대화
+        if(DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventNum] && dialogueEvent.isDialogueB)
+        {
+            dialogueEvent.dialoguesB = SettingDialogue(dialogueEvent.dialoguesB, (int)dialogueEvent.lineB.x, (int)dialogueEvent.lineB.y);
+            return dialogueEvent.dialoguesB;
+        }
         // 상호작용 전 대화
-        if(!DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventNum])
+        else
         {
             DatabaseManager.instance.eventFlags[dialogueEvent.eventTiming.eventNum] = true;
             dialogueEvent.dialogues = SettingDialogue(dialogueEvent.dialogues, (int)dialogueEvent.line.x, (int)dialogueEvent.line.y);
             return dialogueEvent.dialogues;
-        }
-        // 상호작용 후 대화
-        else
-        {
-            dialogueEvent.dialoguesB = SettingDialogue(dialogueEvent.dialoguesB, (int)dialogueEvent.lineB.x, (int)dialogueEvent.lineB.y);
-            return dialogueEvent.dialoguesB;
         }
     }
 
@@ -60,7 +60,6 @@ public class InteractionEvent : MonoBehaviour
         Dialogue[] t_Dialogues = DatabaseManager.instance.GetDialogue(p_lineX, p_lineY);
         for (int i = 0; i < dialogueEvent.dialogues.Length; i++)
         {
-            t_Dialogues[i].targetImage = p_Dialogue[i].targetImage;
             t_Dialogues[i].cameraType = p_Dialogue[i].cameraType;
         }
 
@@ -89,18 +88,6 @@ public class InteractionEvent : MonoBehaviour
 
     private void Update()
     {
-        if (polygonCollider2D != null && spriteRenderer != null)
-        {
-            bool t_flag = CheckEvent();
-
-            polygonCollider2D.enabled = t_flag;
-            spriteRenderer.enabled = t_flag;
-        }
-        else
-        {
-            return;
-        }
-
         if (isAutoEvent && DatabaseManager.isFinish)
         {
             DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
@@ -119,5 +106,18 @@ public class InteractionEvent : MonoBehaviour
 
             gameObject.SetActive(false);
         }
+
+        if (polygonCollider2D != null && spriteRenderer != null)
+        {
+            bool t_flag = CheckEvent();
+
+            polygonCollider2D.enabled = t_flag;
+            spriteRenderer.enabled = t_flag;
+        }
+        else
+        {
+            return;
+        }
+
     }
 }

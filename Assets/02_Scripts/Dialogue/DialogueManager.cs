@@ -11,7 +11,6 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] GameObject go_DialogueBar;
     [SerializeField] GameObject go_DialogueNameBar;
-    [SerializeField] GameObject[] go_DialogueImage;
 
     [SerializeField] TextMeshProUGUI txt_Dialogue;
     [SerializeField] TextMeshProUGUI txt_Name;
@@ -153,13 +152,14 @@ public class DialogueManager : MonoBehaviour
         go_DialogueNameBar.SetActive(false);
         yield return new WaitUntil(() => !InteractionController.isInteract);
 
+        theIC.GetItem();
+
         if(go_NextEvent != null)
         {
             go_NextEvent.SetActive(true);
             go_NextEvent = null;
         }
 
-        theIC.GetItem();
     }
 
     void AppearOrDisappearObjects()
@@ -184,11 +184,11 @@ public class DialogueManager : MonoBehaviour
 
     void ChangeSprite()
     {
-        if (dialogues[lineCount].targetImage != null)
+        if (spriteManager.dialogueImage != null)
         {
             if (dialogues[lineCount].spriteName[contextCount] != "")
             {
-                StartCoroutine(spriteManager.SpriteChangeCoroutine(dialogues[lineCount].targetImage, dialogues[lineCount].spriteName[contextCount]));
+                StartCoroutine(spriteManager.SpriteChangeCoroutine(dialogues[lineCount].spriteName[contextCount]));
             }
         }
     }
@@ -236,10 +236,7 @@ public class DialogueManager : MonoBehaviour
     {
         go_DialogueBar.SetActive(p_flag);
 
-        for (int i = 0; i < go_DialogueImage.Length; i++)
-        {
-            go_DialogueImage[i].SetActive(p_flag);
-        }
+        spriteManager.dialogueImage.enabled = p_flag;
         //go_DialogueNameBar.SetActive(p_flag);
 
         if(p_flag)
