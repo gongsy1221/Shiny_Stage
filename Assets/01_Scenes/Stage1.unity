@@ -3049,7 +3049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65edee646a079c4db271eeca0133ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endPos: {fileID: 3967818114168563505}
+  mainCam: {fileID: 8251123715253447300}
   openButton: {fileID: 2605247282249615770}
   closeButton: {fileID: 6469419077802602456}
   mapUI: {fileID: 5292546244762831831}
@@ -9642,7 +9642,7 @@ Transform:
   m_GameObject: {fileID: 7948555891731881082}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10082,22 +10082,6 @@ GameObject:
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &3967818114168563505
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7281667991474363028}
-  m_Layer: 0
-  m_Name: EventUI_Pos
-  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16458,21 +16442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d96392c801f3c499382ea40f0d3e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &7281667991474363028
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3967818114168563505}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: -3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &7382982693544839690
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17439,4 +17408,3 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 6745222354664579163}
   - {fileID: 336676166}
-  - {fileID: 7281667991474363028}

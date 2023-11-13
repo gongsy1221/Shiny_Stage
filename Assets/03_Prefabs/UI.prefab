@@ -2932,8 +2932,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_DialogueBar: {fileID: 513447018190439868}
   go_DialogueNameBar: {fileID: 2468267361907792547}
-  go_DialogueImage:
-  - {fileID: 0}
   txt_Dialogue: {fileID: 7358586768467986936}
   txt_Name: {fileID: 7953794705287065058}
   isDialogue: 0
@@ -3256,7 +3254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65edee646a079c4db271eeca0133ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endPos: {fileID: 0}
+  mainCam: {fileID: 0}
   openButton: {fileID: 1408669681695513459}
   closeButton: {fileID: 7956969227508235569}
   mapUI: {fileID: 9140563149847664958}

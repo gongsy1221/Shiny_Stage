@@ -6,8 +6,7 @@ using DG.Tweening;
 
 public class ButtonManager : MonoBehaviour
 {
-    Vector3 startPos;
-    [SerializeField] GameObject endPos;
+    [SerializeField] Camera mainCam;
     [SerializeField] GameObject openButton;
     [SerializeField] GameObject closeButton;
     [SerializeField] GameObject mapUI;
@@ -18,7 +17,6 @@ public class ButtonManager : MonoBehaviour
     {
         theIC = FindObjectOfType<InteractionController>();
 
-        startPos = transform.position;
         mapUI.SetActive(false);
     }
 
@@ -36,7 +34,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ClickCloseButton()
     {
-        MoveDown();
+        StartCoroutine(MoveDown());
     }
 
     public void ClickOpenButton()
@@ -44,15 +42,18 @@ public class ButtonManager : MonoBehaviour
         MoveUp();
     }
 
-    void MoveDown()
+    IEnumerator MoveDown()
     {
-        transform.DOMove(endPos.transform.position, 0.5f);
+        Vector3 endPos = new Vector3(mainCam.transform.position.x, mainCam.transform.position.y - 3, 20);
+        transform.DOMove(endPos, 0.5f);
+        yield return new WaitForSeconds(0.5f);
         closeButton.SetActive(false);
         openButton.SetActive(true);
     }
 
     void MoveUp()
     {
+        Vector3 startPos = new Vector3(mainCam.transform.position.x, mainCam.transform.position.y, 20);
         openButton.SetActive(false);
         closeButton.SetActive(true);
         transform.DOMove(startPos, 0.5f);

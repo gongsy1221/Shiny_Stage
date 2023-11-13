@@ -6,7 +6,7 @@ public class InteractionController : MonoBehaviour
 {
     [SerializeField] Camera cam;
 
-    RaycastHit2D hitInfo;
+    public RaycastHit2D hitInfo;
     IObjectItem clickInterface;
 
     [SerializeField] GameObject go_InteractiveCrosshair;
@@ -16,6 +16,7 @@ public class InteractionController : MonoBehaviour
 
     bool isContact = false;
     public static bool isInteract = false;
+    bool clickObject = false;
 
     [SerializeField] ParticleSystem ps_QuesttionEffect;
     [SerializeField] Inventory inventory;
@@ -71,6 +72,7 @@ public class InteractionController : MonoBehaviour
                 go_InteractiveCrosshair.SetActive(true);
                 go_NomalCrosshair.SetActive(false);
                 clickInterface = hitInfo.transform.gameObject.GetComponent<IObjectItem>();
+                clickObject = hitInfo.transform.gameObject.GetComponent<InteractionEvent>().dialogueEvent.isItem;
             }
         }
         else
@@ -137,12 +139,13 @@ public class InteractionController : MonoBehaviour
 
     public void GetItem()
     {
-        if (hitInfo.transform.GetComponent<InteractionEvent>().dialogueEvent.isItem)
+        if (clickObject)
         {
             Debug.Log("item get");
             Item item = clickInterface.ClickItem();
             inventory.AddItem(item);
             hitInfo.transform.gameObject.SetActive(false);
         }
+        else return;
     }
 }
