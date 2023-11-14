@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -57,5 +58,10 @@ public class ButtonManager : MonoBehaviour
         openButton.SetActive(false);
         closeButton.SetActive(true);
         transform.DOMove(startPos, 0.5f);
+    }
+
+    public void GoStartScene()
+    {
+        SceneManager.LoadScene("GameMenu");
     }
 }

@@ -10,7 +10,6 @@ using TMPro;
 public class Select : MonoBehaviour
 {
     public TextMeshProUGUI[] slotText;
-    string[] saveTime = new string[5];
 
     bool[] savefile = new bool[5];
 
@@ -24,7 +23,7 @@ public class Select : MonoBehaviour
 
                 DataManager.instance.nowSlot = i;
                 DataManager.instance.LoadData();
-                slotText[i].text = saveTime[i];
+                slotText[i].text = DataManager.instance.nowPlayer.savetime;
             }
             else
             {
@@ -41,13 +40,11 @@ public class Select : MonoBehaviour
 
         if (savefile[number])
         {
-            saveTime[number] = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss tt"));
             DataManager.instance.LoadData();
             GoGame();
         }
         else
         {
-            saveTime[number] = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss tt"));
             GoGame();
         }
     }
@@ -56,6 +53,7 @@ public class Select : MonoBehaviour
     {
         if (!savefile[DataManager.instance.nowSlot])
         {
+            DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
             DataManager.instance.SaveData();
         }
         SceneManager.LoadScene("Prologue");

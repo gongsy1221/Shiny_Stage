@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class StartSceneManager : MonoBehaviour
 {
     [SerializeField] GameObject explainBoard;
+    [SerializeField] GameObject saveBoard;
 
     public void StartButton()
     {
@@ -20,5 +21,15 @@ public class StartSceneManager : MonoBehaviour
     public void XExpainButton()
     {
         explainBoard.SetActive(false);
+    }
+    
+    public void SaveButton()
+    {
+        saveBoard.SetActive(true);
+    }
+
+    public void XSaveButton()
+    {
+        saveBoard.SetActive(false);
     }
 }

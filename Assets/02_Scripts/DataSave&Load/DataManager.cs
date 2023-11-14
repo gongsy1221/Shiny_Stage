@@ -5,6 +5,7 @@ using System.IO;
 
 public class PlayerData
 {
+    public string savetime;
     public string sceneName;
     public bool[] eventFlags = new bool[100];
     public int item;
