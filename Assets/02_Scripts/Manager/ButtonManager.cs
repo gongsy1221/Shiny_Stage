@@ -11,6 +11,7 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] GameObject openButton;
     [SerializeField] GameObject closeButton;
     [SerializeField] GameObject mapUI;
+    [SerializeField] GameObject settingUI;
 
     InteractionController theIC;
 
@@ -63,5 +64,17 @@ public class ButtonManager : MonoBehaviour
     public void GoStartScene()
     {
         SceneManager.LoadScene("GameMenu");
+    }
+
+    public void ClickSettingButton()
+    {
+        settingUI.SetActive(true);
+        theIC.SettingUI(false);
+    }
+
+    public void ExitStting()
+    {
+        settingUI.SetActive(false);
+        theIC.SettingUI(true);
     }
 }

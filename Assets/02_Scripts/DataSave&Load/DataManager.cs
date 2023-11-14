@@ -6,9 +6,9 @@ using System.IO;
 public class PlayerData
 {
     public string savetime;
-    public string sceneName;
+    public string sceneName = "Prologue";
     public bool[] eventFlags = new bool[100];
-    public int item;
+    public int item = 0;
     public Vector3 camPos;
 }
 

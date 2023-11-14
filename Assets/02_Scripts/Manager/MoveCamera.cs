@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 using Color = UnityEngine.Color;
 public class MoveCamera : MonoBehaviour
 {
-    [SerializeField] Camera myCam;
+    [SerializeField] public Camera myCam;
     [SerializeField] Image fadeImg;
     [SerializeField] GameObject mapUI;
 
@@ -24,7 +24,6 @@ public class MoveCamera : MonoBehaviour
     public void MyRoom()
     {
         CameraMove(new Vector3(20, 0, -10));
-
     }
 
     void CameraMove(Vector3 camPos)
