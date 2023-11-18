@@ -13,6 +13,15 @@ public class Select : MonoBehaviour
 
     bool[] savefile = new bool[5];
 
+    Inventory inventory;
+    DatabaseManager databaseManager;
+
+    private void Awake()
+    {
+        inventory = FindObjectOfType<Inventory>();
+        databaseManager = FindObjectOfType<DatabaseManager>();
+    }
+
     private void Start()
     {
         for(int i = 0; i< savefile.Length; i++)
@@ -55,7 +64,23 @@ public class Select : MonoBehaviour
         {
             DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
             DataManager.instance.SaveData();
+            SceneManager.LoadScene("Prologue");
         }
-        SceneManager.LoadScene(DataManager.instance.nowPlayer.sceneName);
+        else
+        {
+            SceneManager.LoadScene(DataManager.instance.nowPlayer.sceneName);
+            Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
+
+            for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
+            {
+                databaseManager.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
+            }
+
+            for(int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
+            {
+                inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
+            }
+
+        }
     }
 }

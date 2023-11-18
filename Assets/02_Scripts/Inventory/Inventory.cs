@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private Transform slotParent;
     [SerializeField]
-    private Slot[] slots;
+    public Slot[] slots;
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour
         if(items.Count < slots.Length)
         {
             items.Add(_item);
+            
             FreshSlot();
         }
         else

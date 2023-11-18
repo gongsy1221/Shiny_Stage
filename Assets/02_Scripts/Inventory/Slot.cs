@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviour
 {
-    [SerializeField] Image image;
+    [SerializeField] public Image image;
 
     private Item _item;
 

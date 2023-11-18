@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class PlayerData
+public class SaveData
 {
     public string savetime;
     public string sceneName = "Prologue";
     public bool[] eventFlags = new bool[100];
-    public int item = 0;
+    public List<Item> items = new List<Item>();
     public Vector3 camPos;
 }
 
@@ -16,7 +16,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
 
-    public PlayerData nowPlayer = new PlayerData();
+    public SaveData nowPlayer = new SaveData();
 
     public string path;
     public int nowSlot;
@@ -48,12 +48,12 @@ public class DataManager : MonoBehaviour
     public void LoadData()
     {
         string data = File.ReadAllText(path + nowSlot.ToString());
-        nowPlayer = JsonUtility.FromJson<PlayerData>(data);
+        nowPlayer = JsonUtility.FromJson<SaveData>(data);
     }
 
     public void DataClear()
     {
         nowSlot = -1;
-        nowPlayer = new PlayerData();
+        nowPlayer = new SaveData();
     }
 }
