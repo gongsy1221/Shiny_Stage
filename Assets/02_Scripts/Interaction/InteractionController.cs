@@ -99,6 +99,7 @@ public class InteractionController : MonoBehaviour
             {
                 if (isContact)
                 {
+                    SoundManager.instance.PlaySound("Connect", 1);
                     Interact();
                 }
             }

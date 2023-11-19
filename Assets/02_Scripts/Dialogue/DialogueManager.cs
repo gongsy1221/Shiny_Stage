@@ -193,10 +193,19 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    void PlaySound()
+    {
+        if (dialogues[lineCount].voiceName[contextCount] != "")
+        {
+            SoundManager.instance.PlaySound(dialogues[lineCount].voiceName[contextCount], 2);
+        }
+    }
+
     IEnumerator TypeWriter()
     {
         SettingUI(true);
         ChangeSprite();
+        PlaySound();
 
         string t_ReplaceText = dialogues[lineCount].contexts[contextCount];
         t_ReplaceText = t_ReplaceText.Replace("`", ",");
@@ -213,6 +222,8 @@ public class DialogueManager : MonoBehaviour
                 case '¨Î':t_black = true; t_red = false; t_cyan = false; t_ignore = true; break;
                 case '¨Þ':t_black = false; t_red = true; t_cyan = false; t_ignore = true; break;
                 case '¨Ï':t_black = false; t_red = false; t_cyan = true; t_ignore = true; break;
+                case '¨ç': SoundManager.instance.PlaySound("Step", 1); t_ignore = true; break;
+
             }
 
             string t_letter = t_ReplaceText[i].ToString();

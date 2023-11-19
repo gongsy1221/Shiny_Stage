@@ -15,11 +15,13 @@ public class Select : MonoBehaviour
 
     Inventory inventory;
     DatabaseManager databaseManager;
+    SplashManager splashManager;
 
     private void Awake()
     {
         inventory = FindObjectOfType<Inventory>();
         databaseManager = FindObjectOfType<DatabaseManager>();
+        splashManager = FindObjectOfType<SplashManager>();
     }
 
     private void Start()
@@ -64,11 +66,11 @@ public class Select : MonoBehaviour
         {
             DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
             DataManager.instance.SaveData();
-            SceneManager.LoadScene("Prologue");
+            MySceneManager.Instance.ChangeScene("02_Prologue");
         }
         else
         {
-            SceneManager.LoadScene(DataManager.instance.nowPlayer.sceneName);
+            MySceneManager.Instance.ChangeScene(DataManager.instance.nowPlayer.sceneName);
             Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
 
             for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)

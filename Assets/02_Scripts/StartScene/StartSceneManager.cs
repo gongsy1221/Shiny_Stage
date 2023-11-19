@@ -10,7 +10,7 @@ public class StartSceneManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene("Prologue");
+        SceneManager.LoadScene("02_Prologue");
     }
 
     public void ExplainButton()
