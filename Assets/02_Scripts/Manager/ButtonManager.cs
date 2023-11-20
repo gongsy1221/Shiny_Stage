@@ -63,7 +63,7 @@ public class ButtonManager : MonoBehaviour
 
     public void GoStartScene()
     {
-        SceneManager.LoadScene("GameMenu");
+        SceneManager.LoadScene("00_StartMenu");
     }
 
     public void ClickSettingButton()

@@ -14,6 +14,8 @@ public class MySceneManager : MonoBehaviour
     public GameObject Loading;
     public TextMeshProUGUI Loading_text;
 
+    public bool changeScene;
+
 
     public static MySceneManager Instance
     {
@@ -27,6 +29,8 @@ public class MySceneManager : MonoBehaviour
 
     void Start()
     {
+        changeScene = false;
+
         if (instance != null)
         {
             DestroyImmediate(this.gameObject);
@@ -63,6 +67,7 @@ public class MySceneManager : MonoBehaviour
         })
         .OnComplete(() => {
             StartCoroutine("LoadScene", sceneName);
+            changeScene = true;
         });
     }
 

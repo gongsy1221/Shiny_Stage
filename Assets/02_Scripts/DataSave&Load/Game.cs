@@ -10,12 +10,10 @@ using static UnityEditor.Progress;
 public class Game : MonoBehaviour
 {
     Inventory inventory;
-    MoveCamera moveCamera;
 
     private void Start()
     {
         inventory = FindObjectOfType<Inventory>();
-        moveCamera = FindObjectOfType<MoveCamera>();
     }
 
     public void Save()
@@ -30,7 +28,7 @@ public class Game : MonoBehaviour
 
         DataManager.instance.nowPlayer.items = inventory.items;
 
-        DataManager.instance.nowPlayer.camPos = moveCamera.myCam.transform.position;
+        DataManager.instance.nowPlayer.camPos = Camera.main.transform.position;
         DataManager.instance.SaveData();
     }
 }

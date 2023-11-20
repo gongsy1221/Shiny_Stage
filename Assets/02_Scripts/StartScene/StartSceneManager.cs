@@ -7,6 +7,7 @@ public class StartSceneManager : MonoBehaviour
 {
     [SerializeField] GameObject explainBoard;
     [SerializeField] GameObject saveBoard;
+    [SerializeField] GameObject settingBoard;
 
     public void StartButton()
     {
@@ -31,5 +32,15 @@ public class StartSceneManager : MonoBehaviour
     public void XSaveButton()
     {
         saveBoard.SetActive(false);
+    }
+
+    public void SettingButton()
+    {
+        settingBoard.SetActive(true);
+    }
+
+    public void XSettingButton()
+    {
+        settingBoard.SetActive(false);
     }
 }

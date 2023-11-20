@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Select : MonoBehaviour
 {
@@ -14,18 +15,16 @@ public class Select : MonoBehaviour
     bool[] savefile = new bool[5];
 
     Inventory inventory;
-    DatabaseManager databaseManager;
-    SplashManager splashManager;
 
     private void Awake()
     {
         inventory = FindObjectOfType<Inventory>();
-        databaseManager = FindObjectOfType<DatabaseManager>();
-        splashManager = FindObjectOfType<SplashManager>();
     }
 
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
+
         for(int i = 0; i< savefile.Length; i++)
         {
             if (File.Exists(DataManager.instance.path + $"{i}"))
@@ -71,18 +70,26 @@ public class Select : MonoBehaviour
         else
         {
             MySceneManager.Instance.ChangeScene(DataManager.instance.nowPlayer.sceneName);
-            Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
 
-            for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
+            if(MySceneManager.Instance.changeScene == true)
             {
-                databaseManager.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
+                LoadData();
             }
+        }
+    }
 
-            for(int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
-            {
-                inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
-            }
+    private void LoadData()
+    {
+        Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
 
+        for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
+        {
+            DatabaseManager.instance.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
+        }
+
+        for (int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
+        {
+            inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
         }
     }
 }
