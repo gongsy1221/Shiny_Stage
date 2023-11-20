@@ -29,7 +29,7 @@ public class EndInteractionEvent : MonoBehaviour
         {
             case InteractionEvent.HideImage: spriteRenderer.enabled = false; break;
             case InteractionEvent.ShowImahe: spriteRenderer.enabled = true; break;
-            case InteractionEvent.ChangeScene: SceneManager.LoadScene(sceneName);break;
+            case InteractionEvent.ChangeScene: MySceneManager.Instance.ChangeScene(sceneName); break;
         }
 
     }

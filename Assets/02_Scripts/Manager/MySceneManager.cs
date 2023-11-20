@@ -67,6 +67,7 @@ public class MySceneManager : MonoBehaviour
         })
         .OnComplete(() => {
             StartCoroutine("LoadScene", sceneName);
+            SoundManager.instance.PlaySound("Check", 1);
             changeScene = true;
         });
     }
