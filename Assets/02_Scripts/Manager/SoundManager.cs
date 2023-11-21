@@ -32,6 +32,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PlaySound("StartMenu", 0);
+    }
+
     void PlayBGM(string p_name)
     {
         for (int i = 0; i < bgmSounds.Length; i++)
@@ -46,17 +51,17 @@ public class SoundManager : MonoBehaviour
         Debug.Log("NO Name BGM");
     }
 
-    void StopBGM()
+    public void StopBGM()
     {
         bgmPlayer.Stop();
     }
 
-    void PauseBGM()
+    public void PauseBGM()
     {
         bgmPlayer.Pause();
     }
 
-    void UnPauseBGM()
+    public void UnPauseBGM()
     {
         bgmPlayer.UnPause();
     }

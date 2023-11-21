@@ -9,6 +9,11 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField] GameObject saveBoard;
     [SerializeField] GameObject settingBoard;
 
+    public void GameExit()
+    {
+        Application.Quit();
+    }
+
     public void StartButton()
     {
         SceneManager.LoadScene("02_Prologue");

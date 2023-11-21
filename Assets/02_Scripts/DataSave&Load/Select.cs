@@ -51,7 +51,7 @@ public class Select : MonoBehaviour
         if (savefile[number])
         {
             DataManager.instance.LoadData();
-            GoGame();
+            LoadData();
         }
         else
         {
@@ -61,35 +61,28 @@ public class Select : MonoBehaviour
 
     private void GoGame()
     {
-        if (!savefile[DataManager.instance.nowSlot])
-        {
-            DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
-            DataManager.instance.SaveData();
-            MySceneManager.Instance.ChangeScene("01_First");
-        }
-        else
-        {
-            MySceneManager.Instance.ChangeScene(DataManager.instance.nowPlayer.sceneName);
-
-            if(MySceneManager.Instance.changeScene == true)
-            {
-                LoadData();
-            }
-        }
+        DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
+        DataManager.instance.SaveData();
+        MySceneManager.Instance.ChangeScene("01_First");
     }
 
     private void LoadData()
     {
-        Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
+        MySceneManager.Instance.ChangeScene(DataManager.instance.nowPlayer.sceneName);
 
-        for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
+        if (MySceneManager.Instance.changeScene == true)
         {
-            DatabaseManager.instance.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
-        }
+            Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
 
-        for (int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
-        {
-            inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
+            for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
+            {
+                DatabaseManager.instance.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
+            }
+
+            for (int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
+            {
+                inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
+            }
         }
     }
 }

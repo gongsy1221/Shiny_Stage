@@ -18,10 +18,14 @@ public class EndInteractionEvent : MonoBehaviour
     [SerializeField] string sceneName;
     [SerializeField] string endingName;
 
+    InteractionController theIC;
+
     public InteractionEvent interactionEvent;
 
     private void Start()
     {
+        theIC = FindObjectOfType<InteractionController>();
+
         EndEvent();
     }
 
@@ -31,8 +35,8 @@ public class EndInteractionEvent : MonoBehaviour
         {
             case InteractionEvent.HideImage: spriteRenderer.enabled = false; break;
             case InteractionEvent.ShowImahe: spriteRenderer.enabled = true; break;
-            case InteractionEvent.ChangeScene: MySceneManager.Instance.ChangeScene(sceneName); break;
-            case InteractionEvent.EndingCredit: MySceneManager.Instance.EndingCredit(endingName); break;
+            case InteractionEvent.ChangeScene: theIC.SettingUI(false); MySceneManager.Instance.ChangeScene(sceneName); break;
+            case InteractionEvent.EndingCredit: theIC.SettingUI(false); MySceneManager.Instance.EndingCredit(endingName); break;
         }
 
     }

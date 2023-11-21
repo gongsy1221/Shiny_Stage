@@ -13,7 +13,7 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
-        inventory = FindObjectOfType<Inventory>();
+        inventory = GetComponentInChildren<Inventory>();
     }
 
     public void Save()
@@ -26,7 +26,10 @@ public class Game : MonoBehaviour
             DataManager.instance.nowPlayer.eventFlags[i] = DatabaseManager.instance.eventFlags[i];
         }
 
-        DataManager.instance.nowPlayer.items = inventory.items;
+        if (inventory != null)
+        {
+            DataManager.instance.nowPlayer.items = inventory.items;
+        }
 
         DataManager.instance.nowPlayer.camPos = Camera.main.transform.position;
         DataManager.instance.SaveData();
