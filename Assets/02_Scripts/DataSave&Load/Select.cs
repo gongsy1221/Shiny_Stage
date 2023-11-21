@@ -65,7 +65,7 @@ public class Select : MonoBehaviour
         {
             DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
             DataManager.instance.SaveData();
-            MySceneManager.Instance.ChangeScene("02_Prologue");
+            MySceneManager.Instance.ChangeScene("01_First");
         }
         else
         {

@@ -11,10 +11,14 @@ public class MySceneManager : MonoBehaviour
     public CanvasGroup Fade_img;
     float fadeDuration = 2;
 
+    public TextMeshProUGUI endingText;
+    float speed = 0.2f;
+
     public GameObject Loading;
     public TextMeshProUGUI Loading_text;
 
     public bool changeScene;
+    public bool typingEnd;
 
 
     public static MySceneManager Instance
@@ -30,6 +34,8 @@ public class MySceneManager : MonoBehaviour
     void Start()
     {
         changeScene = false;
+        typingEnd = false;
+        endingText.enabled = false;
 
         if (instance != null)
         {
@@ -72,6 +78,21 @@ public class MySceneManager : MonoBehaviour
         });
     }
 
+    public void EndingCredit(string endingName)
+    {
+        Fade_img.DOFade(1, fadeDuration)
+        .OnStart(() => {
+            Fade_img.blocksRaycasts = true;
+            StartCoroutine(Typing(endingName));
+        })
+        .OnComplete(() => {
+            endingText.enabled = false;
+            StartCoroutine("LoadScene", "00_StartMenu");
+            SoundManager.instance.PlaySound("Check", 1);
+            changeScene = true;
+        });
+    }
+
     IEnumerator LoadScene(string sceneName)
     {
         Loading.SetActive(true);
@@ -104,5 +125,17 @@ public class MySceneManager : MonoBehaviour
             }
             Loading_text.text = percentage.ToString("0") + "%";
         }
+    }
+
+    IEnumerator Typing(string message)
+    {
+        endingText.enabled = true;
+
+        for (int i = 0; i < message.Length; i++)
+        {
+            endingText.text = message.Substring(0, i + 1);
+            yield return new WaitForSeconds(speed);
+        }
+        typingEnd = true;
     }
 }

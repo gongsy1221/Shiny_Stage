@@ -10,11 +10,13 @@ public class EndInteractionEvent : MonoBehaviour
     {
         HideImage,
         ShowImahe,
-        ChangeScene
+        ChangeScene,
+        EndingCredit
     }
 
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] string sceneName;
+    [SerializeField] string endingName;
 
     public InteractionEvent interactionEvent;
 
@@ -30,6 +32,7 @@ public class EndInteractionEvent : MonoBehaviour
             case InteractionEvent.HideImage: spriteRenderer.enabled = false; break;
             case InteractionEvent.ShowImahe: spriteRenderer.enabled = true; break;
             case InteractionEvent.ChangeScene: MySceneManager.Instance.ChangeScene(sceneName); break;
+            case InteractionEvent.EndingCredit: MySceneManager.Instance.EndingCredit(endingName); break;
         }
 
     }
