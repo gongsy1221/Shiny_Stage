@@ -9,6 +9,13 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField] GameObject saveBoard;
     [SerializeField] GameObject settingBoard;
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            SceneManager.LoadScene(3);
+        }
+    }
     public void GameExit()
     {
         Application.Quit();

@@ -21,7 +21,7 @@ public class Game : MonoBehaviour
         DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
         DataManager.instance.nowPlayer.sceneName = SceneManager.GetActiveScene().name;
 
-        for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
+        for (int i = 0; i < DatabaseManager.instance.eventFlags.Length; i++)
         {
             DataManager.instance.nowPlayer.eventFlags[i] = DatabaseManager.instance.eventFlags[i];
         }

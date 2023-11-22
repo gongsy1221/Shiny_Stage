@@ -17,8 +17,15 @@ public class MySceneManager : MonoBehaviour
     public GameObject Loading;
     public TextMeshProUGUI Loading_text;
 
-    public bool changeScene;
+    public bool changeScene = false;
     public bool typingEnd;
+
+    Select select;
+
+    private void Awake()
+    {
+        select = FindObjectOfType<Select>();
+    }
 
 
     public static MySceneManager Instance
@@ -74,8 +81,11 @@ public class MySceneManager : MonoBehaviour
         })
         .OnComplete(() => {
             StartCoroutine("LoadScene", sceneName);
+            if(changeScene == true)
+            {
+                select.LoadData();
+            }
             SoundManager.instance.PlaySound("Check", 1);
-            changeScene = true;
         });
     }
 

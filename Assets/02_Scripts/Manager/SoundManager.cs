@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -34,7 +34,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        PlaySound("StartMenu", 0);
+        //PlaySound("StartMenu", 0);
     }
 
     void PlayBGM(string p_name)

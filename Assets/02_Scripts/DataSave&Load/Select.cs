@@ -10,20 +10,36 @@ using Unity.VisualScripting;
 
 public class Select : MonoBehaviour
 {
+    //public static Select instance;
+
     public TextMeshProUGUI[] slotText;
 
     bool[] savefile = new bool[5];
 
     Inventory inventory;
 
+    DatabaseManager databaseManager;
+
+    public bool loadScene = false;
+
     private void Awake()
     {
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
+
         inventory = FindObjectOfType<Inventory>();
+        databaseManager = FindObjectOfType<DatabaseManager>();
     }
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
 
         for(int i = 0; i< savefile.Length; i++)
         {
@@ -51,7 +67,7 @@ public class Select : MonoBehaviour
         if (savefile[number])
         {
             DataManager.instance.LoadData();
-            LoadData();
+            GoGame();
         }
         else
         {
@@ -61,28 +77,37 @@ public class Select : MonoBehaviour
 
     private void GoGame()
     {
-        DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
-        DataManager.instance.SaveData();
-        MySceneManager.Instance.ChangeScene("01_First");
+        if (!savefile[DataManager.instance.nowSlot])
+        {
+            DataManager.instance.InitData();
+            DataManager.instance.nowPlayer.savetime = DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
+            DataManager.instance.SaveData();
+        }
+        MySceneManager.Instance.ChangeScene(DataManager.instance.nowPlayer.sceneName);
     }
 
-    private void LoadData()
+    public void LoadData()
     {
-        MySceneManager.Instance.ChangeScene(DataManager.instance.nowPlayer.sceneName);
+        
 
         if (MySceneManager.Instance.changeScene == true)
         {
+            Debug.Log("Get data");
+
             Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
 
             for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
             {
-                DatabaseManager.instance.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
+                databaseManager.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
             }
 
             for (int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
             {
                 inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
             }
+
+            MySceneManager.Instance.changeScene = false;
+            Debug.Log("end");
         }
     }
 }

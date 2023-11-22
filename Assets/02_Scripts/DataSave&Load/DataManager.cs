@@ -7,9 +7,9 @@ using System.IO;
 public class SaveData
 {
     public string savetime;
-    public string sceneName = "Prologue";
-    public bool[] eventFlags = new bool[100];
-    public List<Item> items = new List<Item>();
+    public string sceneName;
+    public bool[] eventFlags;
+    public List<Item> items;
     public Vector3 camPos;
 }
 
@@ -38,6 +38,19 @@ public class DataManager : MonoBehaviour
 
         path = Application.persistentDataPath + "/save";
         print(path);
+        
+        //SaveData();
+        //LoadData();
+        //Debug.Log(nowPlayer.savetime);
+    }
+
+    public void InitData()
+    {
+        nowPlayer.savetime = "0";
+        nowPlayer.sceneName = "01_First";
+        nowPlayer.eventFlags = new bool[100];
+        nowPlayer.items = new List<Item>();
+        nowPlayer.camPos = Vector3.zero;
     }
 
     public void SaveData()
