@@ -7,16 +7,28 @@ using UnityEngine.UI;
 public class SettingVolume : MonoBehaviour
 {
     public AudioMixer mixer;
-    public Slider slider;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
 
     private void Start()
     {
-        slider.value = PlayerPrefs.GetFloat("BGM", 0.75f);
+        bgmSlider.value = 0;
+        sfxSlider.value = 0;
     }
 
-    public void SetLevel(float sliderValue)
+    public void SetBGM()
     {
-        mixer.SetFloat("BGM", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("BGM", sliderValue);
+        float sound = bgmSlider.value;
+
+        if (sound == -40f) mixer.SetFloat("BGM", -80);
+        else mixer.SetFloat("BGM", sound);
+    }
+
+    public void SetSFX()
+    {
+        float sound = sfxSlider.value;
+
+        if (sound == -40f) mixer.SetFloat("SFX", -80);
+        else mixer.SetFloat("SFX", sound);
     }
 }

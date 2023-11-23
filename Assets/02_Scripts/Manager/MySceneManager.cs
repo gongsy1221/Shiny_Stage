@@ -147,7 +147,7 @@ public class MySceneManager : MonoBehaviour
             endingText.text = message.Substring(0, i + 1);
             yield return new WaitForSeconds(speed);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         endingText.enabled = false;
         typingEnd = true;
 

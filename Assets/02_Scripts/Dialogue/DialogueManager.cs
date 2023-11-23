@@ -243,7 +243,7 @@ public class DialogueManager : MonoBehaviour
         isNext = true;
     }
 
-    void SettingUI(bool p_flag)
+    public void SettingUI(bool p_flag)
     {
         go_DialogueBar.SetActive(p_flag);
 

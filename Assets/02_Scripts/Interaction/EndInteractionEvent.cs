@@ -11,20 +11,25 @@ public class EndInteractionEvent : MonoBehaviour
         HideImage,
         ShowImahe,
         ChangeScene,
-        EndingCredit
+        EndingCredit,
+        SelectEvent
     }
 
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] string sceneName;
     [SerializeField] string endingName;
+    [SerializeField]
+    GameObject selecEvent;
 
     InteractionController theIC;
+    DialogueManager dialogueManager;
 
     public InteractionEvent interactionEvent;
 
     private void Start()
     {
         theIC = FindObjectOfType<InteractionController>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
 
         EndEvent();
     }
@@ -37,6 +42,7 @@ public class EndInteractionEvent : MonoBehaviour
             case InteractionEvent.ShowImahe: spriteRenderer.enabled = true; break;
             case InteractionEvent.ChangeScene: theIC.SettingUI(false); MySceneManager.Instance.ChangeScene(sceneName); break;
             case InteractionEvent.EndingCredit: theIC.SettingUI(false); MySceneManager.Instance.EndingCredit(endingName); break;
+            case InteractionEvent.SelectEvent: selecEvent.SetActive(true); theIC.SettingUI(false); dialogueManager.SettingUI(false); break;
         }
 
     }
