@@ -12,7 +12,7 @@ public class MySceneManager : MonoBehaviour
     float fadeDuration = 2;
 
     public TextMeshProUGUI endingText;
-    float speed = 0.4f;
+    float speed = 0.2f;
 
     public GameObject Loading;
     public TextMeshProUGUI Loading_text;
@@ -72,7 +72,7 @@ public class MySceneManager : MonoBehaviour
         });
     }
 
-    public void ChangeScene(string sceneName)
+    public void ChangeScene(string sceneName, string stageName = "")
     {
         SoundManager.instance.StopBGM();
         Fade_img.DOFade(1, fadeDuration)
@@ -80,11 +80,7 @@ public class MySceneManager : MonoBehaviour
             Fade_img.blocksRaycasts = true;
         })
         .OnComplete(() => {
-            StartCoroutine("LoadScene", sceneName);
-            if(changeScene == true)
-            {
-                select.LoadData();
-            }
+            StartCoroutine(TypingScene(sceneName, stageName));
             SoundManager.instance.PlaySound("Check", 1);
         });
     }
@@ -98,8 +94,7 @@ public class MySceneManager : MonoBehaviour
             
         })
         .OnComplete(() => {
-            StartCoroutine(Typing(endingName));
-            
+            StartCoroutine(TypingEnding(endingName));
         });
     }
 
@@ -135,9 +130,11 @@ public class MySceneManager : MonoBehaviour
             }
             Loading_text.text = percentage.ToString("0") + "%";
         }
+
+        select.LoadData();
     }
 
-    IEnumerator Typing(string message)
+    IEnumerator TypingEnding(string message)
     {
         endingText.enabled = true;
         message = message.Replace("\\n", "\n");
@@ -147,11 +144,26 @@ public class MySceneManager : MonoBehaviour
             endingText.text = message.Substring(0, i + 1);
             yield return new WaitForSeconds(speed);
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         endingText.enabled = false;
         typingEnd = true;
-
         StartCoroutine("LoadScene", "00_StartMenu");
+    }
+    
+    IEnumerator TypingScene(string sceneName,string message)
+    {
+        endingText.enabled = true;
+        message = message.Replace("\\n", "\n");
+
+        for (int i = 0; i < message.Length; i++)
+        {
+            endingText.text = message.Substring(0, i + 1);
+            yield return new WaitForSeconds(speed);
+        }
+        yield return new WaitForSeconds(0.5f);
+        endingText.enabled = false;
+        typingEnd = true;
+        StartCoroutine("LoadScene", sceneName);
         changeScene = true;
     }
 }

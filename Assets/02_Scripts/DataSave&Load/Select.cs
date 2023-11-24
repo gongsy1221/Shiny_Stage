@@ -1,12 +1,7 @@
-using System.Collections;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.IO;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class Select : MonoBehaviour
 {
@@ -33,15 +28,12 @@ public class Select : MonoBehaviour
         //{
         //    Destroy(gameObject);
         //}
-
-        inventory = FindObjectOfType<Inventory>();
-        databaseManager = FindObjectOfType<DatabaseManager>();
     }
 
     private void Start()
     {
 
-        for(int i = 0; i< savefile.Length; i++)
+        for (int i = 0; i < savefile.Length; i++)
         {
             if (File.Exists(DataManager.instance.path + $"{i}"))
             {
@@ -88,26 +80,21 @@ public class Select : MonoBehaviour
 
     public void LoadData()
     {
-        
+        inventory = FindObjectOfType<Inventory>();
+        databaseManager = FindObjectOfType<DatabaseManager>();
 
-        if (MySceneManager.Instance.changeScene == true)
+        Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
+
+        for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
         {
-            Debug.Log("Get data");
-
-            Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
-
-            for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
-            {
-                databaseManager.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
-            }
-
-            for (int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
-            {
-                inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
-            }
-
-            MySceneManager.Instance.changeScene = false;
-            Debug.Log("end");
+            databaseManager.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
         }
+
+        for (int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
+        {
+            inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
+        }
+
+        MySceneManager.Instance.changeScene = false;
     }
 }

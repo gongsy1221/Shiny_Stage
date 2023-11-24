@@ -50,7 +50,7 @@ public class DataManager : MonoBehaviour
         nowPlayer.sceneName = "01_First";
         nowPlayer.eventFlags = new bool[100];
         nowPlayer.items = new List<Item>();
-        nowPlayer.camPos = Vector3.zero;
+        nowPlayer.camPos = new Vector3(0, 0, -10);
     }
 
     public void SaveData()

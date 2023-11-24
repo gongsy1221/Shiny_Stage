@@ -17,6 +17,7 @@ public class EndInteractionEvent : MonoBehaviour
 
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] string sceneName;
+    [SerializeField] string stageName;
     [SerializeField] string endingName;
     [SerializeField]
     GameObject selecEvent;
@@ -40,7 +41,7 @@ public class EndInteractionEvent : MonoBehaviour
         {
             case InteractionEvent.HideImage: spriteRenderer.enabled = false; break;
             case InteractionEvent.ShowImahe: spriteRenderer.enabled = true; break;
-            case InteractionEvent.ChangeScene: theIC.SettingUI(false); MySceneManager.Instance.ChangeScene(sceneName); break;
+            case InteractionEvent.ChangeScene: theIC.SettingUI(false); MySceneManager.Instance.ChangeScene(sceneName, stageName); break;
             case InteractionEvent.EndingCredit: theIC.SettingUI(false); MySceneManager.Instance.EndingCredit(endingName); break;
             case InteractionEvent.SelectEvent: selecEvent.SetActive(true); theIC.SettingUI(false); dialogueManager.SettingUI(false); break;
         }
