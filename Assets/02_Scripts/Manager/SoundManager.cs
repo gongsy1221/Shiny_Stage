@@ -19,6 +19,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] Sound[] bgmSounds;
     [SerializeField] AudioSource bgmPlayer;
 
+    [SerializeField] AudioSource voicePlayer;
+
     private void Awake()
     {
         if (instance == null)
@@ -95,9 +97,24 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    void PlayVoiceSound(string p_name)
+    {
+        AudioClip _clip = Resources.Load<AudioClip>("Sounds/" + p_name);
+        if(_clip != null )
+        {
+            voicePlayer.clip = _clip;
+            voicePlayer.Play();
+        }
+        else
+        {
+            Debug.LogError(p_name + " is no sound");
+        }
+    }
+
     public void PlaySound(string p_name, int p_type)
     {
         if (p_type == 0) PlayBGM(p_name);
         else if (p_type == 1) PlayEffectSound(p_name);
+        else if(p_type == 2) PlayVoiceSound(p_name);
     }
 }

@@ -7282,22 +7282,22 @@ MonoBehaviour:
   effectSounds:
   - name: Check
     clip: {fileID: 8300000, guid: e97acac438efdaf45830ebfd0e9759fa, type: 3}
-  - name: Amazing
-    clip: {fileID: 0}
-  - name: Connect
-    clip: {fileID: 0}
-  - name: DoorOpen
-    clip: {fileID: 0}
+  - name: Beep
+    clip: {fileID: 8300000, guid: 729962689b7022f41b6fc8f41bf5e2d3, type: 3}
   - name: Step
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 5e4d92c834121884b9b498cef85218fc, type: 3}
+  - name: DoorOpen
+    clip: {fileID: 8300000, guid: e588e891d98feac44a59d8501dac617e, type: 3}
+  - name: Scratch
+    clip: {fileID: 8300000, guid: c859409bf0d5586408312a300fdc51bf, type: 3}
   - name: Click
     clip: {fileID: 0}
   effectPlayer:
   - {fileID: 3067893099876751753}
   - {fileID: 5929070042614228726}
   - {fileID: 1438530981999626614}
+  - {fileID: 1438530981999626614}
   - {fileID: 941991378552544950}
-  - {fileID: 3690574257538048588}
   - {fileID: 3690574257538048588}
   bgmSounds:
   - name: StartMenu
@@ -7305,6 +7305,7 @@ MonoBehaviour:
   - name: CCTVRoom
     clip: {fileID: 0}
   bgmPlayer: {fileID: 3423283384905321248}
+  voicePlayer: {fileID: 8691448106199923354}
 --- !u!82 &3067893099876751753
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7715,6 +7716,7 @@ GameObject:
   - component: {fileID: 3474062710459510712}
   - component: {fileID: 1758159266940170352}
   - component: {fileID: 3423283384905321248}
+  - component: {fileID: 8691448106199923354}
   - component: {fileID: 3067893099876751753}
   - component: {fileID: 5929070042614228726}
   - component: {fileID: 1438530981999626614}
@@ -7727,6 +7729,102 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!82 &8691448106199923354
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8691448106199923353}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -722089963497964283, guid: 93cfa20b852eeb04aac4a59277a11622, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

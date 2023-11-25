@@ -85,14 +85,20 @@ public class Select : MonoBehaviour
 
         Camera.main.transform.position = DataManager.instance.nowPlayer.camPos;
 
-        for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
+        if (DataManager.instance.nowPlayer.eventFlags != null)
         {
-            databaseManager.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
+            for (int i = 0; i < DataManager.instance.nowPlayer.eventFlags.Length; i++)
+            {
+                databaseManager.eventFlags[i] = DataManager.instance.nowPlayer.eventFlags[i];
+            }
         }
 
-        for (int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
+        if (DataManager.instance.nowPlayer.items != null)
         {
-            inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
+            for (int i = 0; i < DataManager.instance.nowPlayer.items.Count; i++)
+            {
+                inventory.AddItem(DataManager.instance.nowPlayer.items[i]);
+            }
         }
 
         MySceneManager.Instance.changeScene = false;

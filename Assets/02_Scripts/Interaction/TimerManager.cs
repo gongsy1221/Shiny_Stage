@@ -15,9 +15,15 @@ public class TimerManager : MonoBehaviour
         limitTime -= Time.deltaTime;
         time.text = Mathf.Round(limitTime) + "√ ";
 
-        if(limitTime == 0)
+        if(Mathf.Round(limitTime) == 0)
         {
+            gameObject.SetActive(false);
             badEndingEvent.SetActive(true);
+        }
+
+        if (DatabaseManager.instance.eventFlags[9])
+        {
+            gameObject.SetActive(false);
         }
     }
 }

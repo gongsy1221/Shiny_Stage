@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InteractionController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class InteractionController : MonoBehaviour
     [SerializeField] GameObject go_NomalCrosshair;
     [SerializeField] GameObject go_Event;
     [SerializeField] GameObject go_Cusror;
+    GameObject currentClickObject;
 
     bool isContact = false;
     public static bool isInteract = false;
@@ -68,6 +70,7 @@ public class InteractionController : MonoBehaviour
         {
             if (!isContact)
             {
+                currentClickObject = hitInfo.transform.gameObject;
                 isContact = true;
                 go_InteractiveCrosshair.SetActive(true);
                 go_NomalCrosshair.SetActive(false);
@@ -142,10 +145,13 @@ public class InteractionController : MonoBehaviour
     {
         if (clickObject)
         {
-            hitInfo.transform.gameObject.SetActive(false);
+            currentClickObject.SetActive(false);
             Item item = clickInterface.ClickItem();
             inventory.AddItem(item);
+            Debug.Log("Get Item");
         }
         else return;
+
+        currentClickObject = null;
     }
 }

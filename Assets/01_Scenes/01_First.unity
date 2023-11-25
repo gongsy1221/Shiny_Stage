@@ -243,10 +243,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 0}
-  sceneName: 
-  stageName: 
-  endingName: "\uC548\uC804\uD55C \uAE38\\n~Normal Ending~"
+  sceneName: aa
+  stageName: aa
+  endingName: "Normal Ending\\n~\uC548\uC804\uD55C \uAE38~"
   selecEvent: {fileID: 1275592557}
+  item: {fileID: 0}
   interactionEvent: 3
 --- !u!1 &157705879
 GameObject:
@@ -2087,14 +2088,14 @@ MonoBehaviour:
       skipnum: []
       spriteName: []
       voiceName: []
-    - cameraType: 0
+    - cameraType: 5
       name: 
       contexts: []
       number: []
       skipnum: []
       spriteName: []
       voiceName: []
-    - cameraType: 6
+    - cameraType: 5
       name: 
       contexts: []
       number: []
@@ -2174,11 +2175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8733cdac26770041b31648476ff3513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 1905521493}
   sceneName: 02_Prologue
   stageName: "Stage0\\n~\uB808\uBCA8\uD14C\uC2A4\uD2B8~"
-  endingName: 
-  selecEvent: {fileID: 0}
+  endingName: X
+  selecEvent: {fileID: 3744629065876634340}
+  item: {fileID: 0}
   interactionEvent: 2
 --- !u!1 &1987936857
 GameObject:

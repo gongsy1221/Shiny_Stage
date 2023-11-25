@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EndInteractionEvent : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class EndInteractionEvent : MonoBehaviour
         ShowImahe,
         ChangeScene,
         EndingCredit,
-        SelectEvent
+        SelectEvent,
+        ChangeItem
     }
 
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -21,9 +23,11 @@ public class EndInteractionEvent : MonoBehaviour
     [SerializeField] string endingName;
     [SerializeField]
     GameObject selecEvent;
+    [SerializeField] Item item;
 
     InteractionController theIC;
     DialogueManager dialogueManager;
+    Inventory inventory;
 
     public InteractionEvent interactionEvent;
 
@@ -31,6 +35,7 @@ public class EndInteractionEvent : MonoBehaviour
     {
         theIC = FindObjectOfType<InteractionController>();
         dialogueManager = FindObjectOfType<DialogueManager>();
+        inventory = FindObjectOfType<Inventory>();
 
         EndEvent();
     }
@@ -41,9 +46,17 @@ public class EndInteractionEvent : MonoBehaviour
         {
             case InteractionEvent.HideImage: spriteRenderer.enabled = false; break;
             case InteractionEvent.ShowImahe: spriteRenderer.enabled = true; break;
-            case InteractionEvent.ChangeScene: theIC.SettingUI(false); MySceneManager.Instance.ChangeScene(sceneName, stageName); break;
-            case InteractionEvent.EndingCredit: theIC.SettingUI(false); MySceneManager.Instance.EndingCredit(endingName); break;
-            case InteractionEvent.SelectEvent: selecEvent.SetActive(true); theIC.SettingUI(false); dialogueManager.SettingUI(false); break;
+            case InteractionEvent.ChangeItem: inventory.items.Remove(inventory.items[0]); inventory.items.Add(item); break;
+            case InteractionEvent.ChangeScene: theIC.SettingUI(false);
+                MySceneManager.Instance.ChangeScene(sceneName, stageName);
+                break;
+            case InteractionEvent.EndingCredit: theIC.SettingUI(false);
+                MySceneManager.Instance.EndingCredit(endingName);
+                break;
+            case InteractionEvent.SelectEvent: selecEvent.SetActive(true);
+                theIC.SettingUI(false);
+                dialogueManager.SettingUI(false);
+                break;
         }
 
     }
