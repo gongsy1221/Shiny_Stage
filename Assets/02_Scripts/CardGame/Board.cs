@@ -15,6 +15,16 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
+        GameSetting();
+    }
+
+    public void GameSetting()
+    {
+        if (CardGameManager.instance.secondGame)
+        {
+            cardIDList = new List<int>();
+            cardList = new List<Card>();
+        }
         GenerateCardID();
         ShuffleCardID();
         InitBoard();
@@ -44,10 +54,10 @@ public class Board : MonoBehaviour
     void InitBoard()
     {
         float spaceY = 3f;
-        float spaceX = 2.5f;
+        float spaceX = 2.3f;
 
         int rowCount = 3;
-        int colCount = 5;
+        int colCount = 6;
 
         int cardIndex = 0;
 
@@ -55,11 +65,9 @@ public class Board : MonoBehaviour
         {
             for (int col = 0; col < colCount; col++)
             {
-                float posX = (col - (colCount / 2)) * spaceX - 1.4f;
+                float posX = (col - (colCount / 2)) * spaceX - 0.3f;
                 float posY = (row - (int)(rowCount / 2)) * spaceY;
                 Vector3 pos = new Vector3(posX, posY, 0f);
-                Instantiate(cardPrefabs, pos, Quaternion.identity);
-
                 GameObject cardObject = Instantiate(cardPrefabs, pos, Quaternion .identity);
                 Card card = cardObject.GetComponent<Card>();
                 int cardID = cardIDList[cardIndex++];

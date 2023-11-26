@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class CardGameManager : MonoBehaviour
 {
     public static CardGameManager instance;
     private List<Card> allCards;
+    Board board;
 
     private Card flippedCard;
 
@@ -16,10 +18,21 @@ public class CardGameManager : MonoBehaviour
 
     [SerializeField] private Slider timeOutSlider;
     [SerializeField] private TextMeshProUGUI timeOutText;
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] GameObject restartButton;
+    [SerializeField] TextMeshProUGUI scoreOne;
+    [SerializeField] TextMeshProUGUI scoreTwo;
+    private bool isGameOver = false;
+    public bool secondGame = false;
+
     [SerializeField] private float timeLimit = 60f;
     private float currentTime;
 
+    private int totalMatches = 9;
     private int matchesFound = 0;
+
+    private int firstScore;
+    private int secondScore;
 
     private void Awake()
     {
@@ -31,7 +44,7 @@ public class CardGameManager : MonoBehaviour
 
     private void Start()
     {
-        Board board = FindObjectOfType<Board>();
+        board = FindObjectOfType<Board>();
         allCards = board.GetCards();
 
         currentTime = timeLimit;
@@ -55,7 +68,7 @@ public class CardGameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         isFlipping = false;
 
-        yield return StartCoroutine(CountDownTimerRoutine());
+        yield return StartCoroutine("CountDownTimerRoutine");
     }
 
     IEnumerator CountDownTimerRoutine()
@@ -81,7 +94,7 @@ public class CardGameManager : MonoBehaviour
 
     public void CardClicked(Card card)
     {
-        if(isFlipping)
+        if(isFlipping || isGameOver)
         {
             return;
         }
@@ -105,10 +118,14 @@ public class CardGameManager : MonoBehaviour
             card1.SetMatched();
             card2.SetMatched();
             matchesFound++;
+
+            if(matchesFound == totalMatches)
+            {
+                GameOver(true);
+            }
         }
         else
         {
-            Debug.Log("Differet Card");
             yield return new WaitForSeconds(1f);
 
             card1.FlipCard();
@@ -123,9 +140,57 @@ public class CardGameManager : MonoBehaviour
 
     void GameOver(bool success)
     {
-        if(success)
-        {
+        StopCoroutine("CountDownTimerRoutine");
 
+        if (!isGameOver)
+        {
+            isGameOver = true;
+
+            if (!secondGame)
+            {
+                if (success)
+                {
+                    firstScore = 10 + 100 / Mathf.CeilToInt(currentTime);
+                }
+                else
+                {
+                    firstScore = matchesFound;
+                }
+                scoreOne.text = firstScore.ToString();
+            }
+            else if (secondGame)
+            {
+                if (success)
+                {
+                    secondScore = 10 + 100 / Mathf.CeilToInt(currentTime);
+                }
+                else
+                {
+                    secondScore = matchesFound;
+                }
+                scoreTwo.text = secondScore.ToString();
+            }
+
+            Invoke("ShowGameOverPanel", 2f);
         }
+    }
+
+    void ShowGameOverPanel()
+    {
+        gameOverPanel.SetActive(true);
+        if(secondGame)
+        {
+            restartButton.SetActive(false);
+        }
+        secondGame = true;
+    }
+
+    public void GameRestart()
+    {
+        currentTime = timeLimit;
+        matchesFound = 0;
+        board.GameSetting();
+        gameOverPanel.SetActive(false);
+        StartCoroutine("CountDownTimerRoutine");
     }
 }

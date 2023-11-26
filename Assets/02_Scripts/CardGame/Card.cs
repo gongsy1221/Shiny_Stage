@@ -25,7 +25,12 @@ public class Card : MonoBehaviour
 
     public void SetAnaimalSprite(Sprite sprite)
     {
-        this.animalSprite = sprite;
+        animalSprite = sprite;
+    }
+
+    private void Start()
+    {
+        cardRenderer.sprite = backSprite;
     }
 
     public void FlipCard()
