@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01_Scenes/03_Stage1.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/01_Scenes/MemoryGame.unity
+    guid: 3c93da2709e470a42b512a07ca663e8e
+  - enabled: 1
+    path: Assets/01_Scenes/04_LastStage.unity
+    guid: eeddee9ca244ba64a98fa0b4182013a3
   m_configObjects: {}

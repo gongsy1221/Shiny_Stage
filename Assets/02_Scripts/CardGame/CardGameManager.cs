@@ -5,9 +5,15 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using System.IO;
+
+
 
 public class CardGameManager : MonoBehaviour
 {
+    
+    
+
     public static CardGameManager instance;
     private List<Card> allCards;
     Board board;
@@ -34,12 +40,23 @@ public class CardGameManager : MonoBehaviour
     private int firstScore;
     private int secondScore;
 
+    [SerializeField] TextMeshProUGUI firstGameScore;
+    [SerializeField] TextMeshProUGUI secondGameScore;
+    private int firstSetScore;
+    private int secondSetScore;
+
+    public int endNum = 0;
+
+    [SerializeField] TextMeshProUGUI turntext;
+    public bool myTurn = true;
+
     private void Awake()
     {
         if(instance == null)
         {
             instance = this;
         }
+        
     }
 
     private void Start()
@@ -50,6 +67,14 @@ public class CardGameManager : MonoBehaviour
         currentTime = timeLimit;
         SetCurrentTimeText();
         StartCoroutine("FlipAllCardsRoutine");
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            currentTime = 1;
+        }
     }
 
     private void SetCurrentTimeText()
@@ -119,6 +144,15 @@ public class CardGameManager : MonoBehaviour
             card2.SetMatched();
             matchesFound++;
 
+            if(myTurn)
+            {
+                firstScore += 10;
+            }
+            else if(!myTurn)
+            {
+                secondScore += 10;
+            }
+
             if(matchesFound == totalMatches)
             {
                 GameOver(true);
@@ -134,6 +168,17 @@ public class CardGameManager : MonoBehaviour
             yield return new WaitForSeconds(0.4f);
         }
 
+        if (myTurn)
+        {
+            myTurn = false;
+            turntext.text = "±èÀ±";
+        }
+        else if (!myTurn)
+        {
+            myTurn = true;
+            turntext.text = "ÃÖ¹Î¿ì";
+        }
+
         isFlipping = false;
         flippedCard = null;
     }
@@ -146,30 +191,8 @@ public class CardGameManager : MonoBehaviour
         {
             isGameOver = true;
 
-            if (!secondGame)
-            {
-                if (success)
-                {
-                    firstScore = 10 + 100 / Mathf.CeilToInt(currentTime);
-                }
-                else
-                {
-                    firstScore = matchesFound;
-                }
-                scoreOne.text = firstScore.ToString();
-            }
-            else if (secondGame)
-            {
-                if (success)
-                {
-                    secondScore = 10 + 100 / Mathf.CeilToInt(currentTime);
-                }
-                else
-                {
-                    secondScore = matchesFound;
-                }
-                scoreTwo.text = secondScore.ToString();
-            }
+            scoreOne.text = firstScore.ToString();
+            scoreTwo.text = secondScore.ToString();
 
             Invoke("ShowGameOverPanel", 2f);
         }
@@ -177,20 +200,44 @@ public class CardGameManager : MonoBehaviour
 
     void ShowGameOverPanel()
     {
+        GameEndEvent();
         gameOverPanel.SetActive(true);
-        if(secondGame)
-        {
-            restartButton.SetActive(false);
-        }
         secondGame = true;
     }
 
     public void GameRestart()
     {
-        currentTime = timeLimit;
-        matchesFound = 0;
-        board.GameSetting();
-        gameOverPanel.SetActive(false);
-        StartCoroutine("CountDownTimerRoutine");
+        SceneManager.LoadScene("MemoryGame");
+    }
+
+    public void GameEndEvent()
+    {
+        if (File.Exists(CardGameData.instance.path + "ScoreData"))
+        {
+            CardGameData.instance.LoadData();
+
+            firstSetScore = CardGameData.instance.nowPlayer.cmwSetScore;
+            secondSetScore = CardGameData.instance.nowPlayer.kySetScore;
+        }
+
+        if (firstScore > secondScore)
+        {
+            firstSetScore++;
+            firstGameScore.text = firstSetScore.ToString();
+        }
+        else if (firstScore < secondScore)
+        {
+            secondSetScore++;
+            secondGameScore.text = secondSetScore.ToString();
+        }
+
+        CardGameData.instance.nowPlayer.cmwSetScore = firstSetScore;
+        CardGameData.instance.nowPlayer.kySetScore = secondSetScore;
+        CardGameData.instance.SaveData();
+
+        if (firstSetScore >= 3 || secondSetScore >= 3)
+        {
+            MySceneManager.Instance.ChangeScene("04_LastStage", "Main Stage\n~ÃÖÁ¾ ½ÂÀÚ~");
+        }
     }
 }

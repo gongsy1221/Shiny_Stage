@@ -5,7 +5,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 public class Game : MonoBehaviour
 {

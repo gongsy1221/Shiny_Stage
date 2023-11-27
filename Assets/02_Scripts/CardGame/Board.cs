@@ -15,16 +15,6 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-        GameSetting();
-    }
-
-    public void GameSetting()
-    {
-        if (CardGameManager.instance.secondGame)
-        {
-            cardIDList = new List<int>();
-            cardList = new List<Card>();
-        }
         GenerateCardID();
         ShuffleCardID();
         InitBoard();
@@ -53,6 +43,7 @@ public class Board : MonoBehaviour
 
     void InitBoard()
     {
+
         float spaceY = 3f;
         float spaceX = 2.3f;
 

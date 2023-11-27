@@ -14,7 +14,8 @@ public class EndInteractionEvent : MonoBehaviour
         ChangeScene,
         EndingCredit,
         SelectEvent,
-        ChangeItem
+        ChangeItem,
+        MoveCamera
     }
 
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -24,6 +25,8 @@ public class EndInteractionEvent : MonoBehaviour
     [SerializeField]
     GameObject selecEvent;
     [SerializeField] Item item;
+    [SerializeField] Vector3 cameraPos;
+    [SerializeField] GameObject talkCharacter;
 
     InteractionController theIC;
     DialogueManager dialogueManager;
@@ -53,9 +56,13 @@ public class EndInteractionEvent : MonoBehaviour
             case InteractionEvent.EndingCredit: theIC.SettingUI(false);
                 MySceneManager.Instance.EndingCredit(endingName);
                 break;
-            case InteractionEvent.SelectEvent: selecEvent.SetActive(true);
-                theIC.SettingUI(false);
+            case InteractionEvent.SelectEvent: selecEvent.SetActive(false);
+                theIC.SettingUI(true);
                 dialogueManager.SettingUI(false);
+                break;
+            case InteractionEvent.MoveCamera: Camera.main.transform.position = cameraPos; 
+                talkCharacter.transform.position =
+                    new Vector3(talkCharacter.transform.position.x + cameraPos.x, talkCharacter.transform.position.y, talkCharacter.transform.position.z);
                 break;
         }
 
